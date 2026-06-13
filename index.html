@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goti Express - Employee Management System</title>
+    
+    <!-- Tailwind CSS (স্টাইলের জন্য) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons (আইকনের জন্য) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts (সুন্দর বাংলা ও ইংরেজি ফন্ট) -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- React & ReactDOM (লজিকের জন্য) -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    
+    <!-- Babel (ব্রাউজারে React কোড রান করার জন্য) -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-bn { font-family: 'Hind Siliguri', sans-serif; }
+    </style>
+</head>
+<body class="bg-[#0f172a] m-0 p-0 overflow-hidden">
+    <!-- এখানে আমাদের ওয়েবসাইট লোড হবে -->
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        // --- ভাষা অনুবাদ ডিকশনারি (Translations) ---
+        const translations = {
+          bn: {
+            appName: 'গতি এক্সপ্রেস',
+            subtitle: 'এমপ্লয়ি ম্যানেজমেন্ট সিস্টেম',
+            loginID: 'লগইন আইডি (ফোন বা ইমেইল)',
+            password: 'পাসওয়ার্ড',
+            loginBtn: 'লগইন করুন',
+            home: 'ড্যাশবোর্ড',
+            employees: 'প্রোফাইল',
+            attendance: 'উপস্থিতি',
+            expenses: 'যাতায়াত ও খরচ',
+            reports: 'ডেইলি রিপোর্ট',
+            payments: 'হিসাব ও পেমেন্ট',
+            role: 'রোল',
+            designation: 'পদবী',
+            myTasks: 'আমার টাস্ক লিস্ট',
+            myActivity: 'আমার একটিভিটি',
+            noTask: 'কোনো নতুন টাস্ক নেই',
+            noActivity: 'কোনো একটিভিটি নেই',
+            liveCamera: 'লাইভ ক্যামেরা (সেলফি)',
+            submitAttendance: 'উপস্থিতি সাবমিট করুন',
+            attHistory: 'উপস্থিতির ইতিহাস',
+            allAtt: 'সকল কর্মচারীর উপস্থিতি',
+            photo: 'ছবি',
+            name: 'নাম',
+            date: 'তারিখ',
+            time: 'সময়',
+            noRecord: 'কোনো রেকর্ড পাওয়া যায়নি',
+            amount: 'টাকার পরিমাণ (৳)',
+            desc: 'খরচের বিবরণ/স্থান',
+            addEntry: 'এন্ট্রি করুন',
+            status: 'স্ট্যাটাস',
+            action: 'অ্যাকশন',
+            pending: 'অপেক্ষমান',
+            approved: 'অনুমোদিত',
+            customers: 'আজকে কতজন কাস্টমারকে সাপোর্ট দিয়েছেন?',
+            reportDetails: 'কাজের বিস্তারিত বিবরণ',
+            submitReport: 'রিপোর্ট জমা দিন',
+            uploadPic: 'ছবি পরিবর্তন করুন'
+          },
+          en: {
+            appName: 'Goti Express',
+            subtitle: 'Employee Management System',
+            loginID: 'Login ID (Phone or Email)',
+            password: 'Password',
+            loginBtn: 'Login',
+            home: 'Dashboard',
+            employees: 'Employee Profiles',
+            attendance: 'Attendance',
+            expenses: 'Travel & Expenses',
+            reports: 'Daily Reports',
+            payments: 'Payments & Accounts',
+            role: 'Role',
+            designation: 'Designation',
+            myTasks: 'MY TASK LIST',
+            myActivity: 'MY ACTIVITY LIST',
+            noTask: 'No new tasks',
+            noActivity: 'No activity found',
+            liveCamera: 'Live Camera (Selfie)',
+            submitAttendance: 'Submit Attendance',
+            attHistory: 'My Attendance History',
+            allAtt: 'All Employees Attendance',
+            photo: 'Photo',
+            name: 'Name',
+            date: 'Date',
+            time: 'Time',
+            noRecord: 'No records found',
+            amount: 'Amount (৳)',
+            desc: 'Expense Description',
+            addEntry: 'Add Entry',
+            status: 'Status',
+            action: 'Action',
+            pending: 'Pending',
+            approved: 'Approved',
+            customers: 'Customers Supported Today?',
+            reportDetails: 'Work Details',
+            submitReport: 'Submit Report',
+            uploadPic: 'Change Photo'
+          }
+        };
+
+        const initialUsers = [
+          { id: 1, name: 'Admin', loginId: 'sreebashkumar65@gmail.com', password: '01815151122', role: 'admin', designation: 'Administrator', avatar: null },
+          { id: 2, name: 'স্বাধীন আহমেদ তামিম', loginId: '01813910850', password: '01813910850', role: 'employee', designation: 'Technician At Goti Express', avatar: null }
+        ];
+
+        function App() {
+          const [lang, setLang] = useState('bn');
+          const t = (key) => translations[lang][key] || key;
+
+          const [isLoggedIn, setIsLoggedIn] = useState(false);
+          const [currentUser, setCurrentUser] = useState(null);
+          const [users, setUsers] = useState(initialUsers);
+          
+          const [currentView, setCurrentView] = useState('dashboard');
+          const [sidebarOpen, setSidebarOpen] = useState(true);
+
+          const [attendances, setAttendances] = useState([]);
+          const [expenses, setExpenses] = useState([]);
+          const [reports, setReports] = useState([]);
+          const [payments, setPayments] = useState([]);
+
+          const fontClass = lang === 'bn' ? "font-bn" : "";
+
+          const handleLogin = (e) => {
+            e.preventDefault();
+            const loginId = e.target.loginId.value;
+            const password = e.target.password.value;
+            
+            const user = users.find(u => u.loginId === loginId && u.password === password);
+            if (user) {
+              setCurrentUser(user);
+              setIsLoggedIn(true);
+              setCurrentView('dashboard');
+            } else {
+              alert(lang === 'bn' ? 'লগইন আইডি অথবা পাসওয়ার্ড ভুল হয়েছে!' : 'Invalid Login ID or Password!');
+            }
+          };
+
+          const handleLogout = () => {
+            setIsLoggedIn(false);
+            setCurrentUser(null);
+          };
+
+          const updateUserProfile = (updatedUser) => {
+            setCurrentUser(updatedUser);
+            setUsers(users.map(u => u.id === updatedUser.id ? updatedUser : u));
+          };
+
+          if (!isLoggedIn) {
+            return (
+              <div className={`min-h-screen bg-[#0f172a] flex items-center justify-center p-4 ${fontClass}`}>
+                <div className="absolute top-4 right-4 bg-white/10 p-1 rounded-lg backdrop-blur-sm flex border border-white/20">
+                  <button onClick={() => setLang('bn')} className={`px-3 py-1 rounded-md text-sm font-bold transition ${lang === 'bn' ? 'bg-blue-600 text-white' : 'text-blue-200 hover:text-white'}`}>বাংলা</button>
+                  <button onClick={() => setLang('en')} className={`px-3 py-1 rounded-md text-sm font-bold transition ${lang === 'en' ? 'bg-blue-600 text-white' : 'text-blue-200 hover:text-white'}`}>EN</button>
+                </div>
+
+                <div className="max-w-md w-full bg-[#1e293b] border border-blue-900/50 rounded-xl shadow-2xl p-8">
+                  <div className="text-center mb-8">
+                    <h1 className="text-3xl font-bold text-blue-400 mb-2">{t('appName')}</h1>
+                    <p className="text-blue-200/60">{t('subtitle')}</p>
+                  </div>
+                  <form onSubmit={handleLogin} className="space-y-6">
+                    <div>
+                      <label className="block text-sm font-medium text-blue-200 mb-1">{t('loginID')}</label>
+                      <input type="text" name="loginId" className="w-full px-4 py-3 bg-[#0f172a] border border-slate-600 rounded-lg text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition outline-none" required />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-blue-200 mb-1">{t('password')}</label>
+                      <input type="password" name="password" className="w-full px-4 py-3 bg-[#0f172a] border border-slate-600 rounded-lg text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition outline-none" required />
+                    </div>
+                    <button type="submit" className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition font-bold shadow-lg shadow-blue-900/50">
+                      {t('loginBtn')}
+                    </button>
+                  </form>
+                </div>
+              </div>
+            );
+          }
+
+          return (
+            <div className={`flex h-screen bg-[#f1f5f9] overflow-hidden ${fontClass}`}>
+              {/* Sidebar */}
+              <div className={`${sidebarOpen ? 'w-64' : 'w-0'} transition-all duration-300 bg-[#1e293b] flex flex-col overflow-hidden shadow-xl z-20`}>
+                <div className="p-4 bg-[#0f172a] flex items-center justify-center h-16 shrink-0 border-b border-slate-700">
+                  <h2 className="text-2xl font-bold text-blue-400 truncate">{t('appName')}</h2>
+                </div>
+                <div className="flex-1 overflow-y-auto py-6">
+                  <nav className="space-y-2 px-3">
+                    <SidebarItem icon="fa-house" label={t('home')} active={currentView === 'dashboard'} onClick={() => setCurrentView('dashboard')} />
+                    
+                    {currentUser.role === 'admin' && (
+                      <SidebarItem icon="fa-users" label={t('employees')} active={currentView === 'employees'} onClick={() => setCurrentView('employees')} />
+                    )}
+                    
+                    <SidebarItem icon="fa-user-check" label={t('attendance')} active={currentView === 'attendance'} onClick={() => setCurrentView('attendance')} />
+                    <SidebarItem icon="fa-money-bill-wave" label={t('expenses')} active={currentView === 'expenses'} onClick={() => setCurrentView('expenses')} />
+                    <SidebarItem icon="fa-file-lines" label={t('reports')} active={currentView === 'reports'} onClick={() => setCurrentView('reports')} />
+                    
+                    {currentUser.role === 'admin' && (
+                      <SidebarItem icon="fa-briefcase" label={t('payments')} active={currentView === 'payments'} onClick={() => setCurrentView('payments')} />
+                    )}
+                  </nav>
+                </div>
+              </div>
+
+              {/* Main Content Area */}
+              <div className="flex-1 flex flex-col h-screen overflow-hidden relative">
+                {/* Top Navbar */}
+                <header className="h-16 bg-[#0f172a] text-white flex items-center justify-between px-4 shrink-0 shadow-md z-10">
+                  <div className="flex items-center">
+                    <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2 mr-4 text-blue-300 hover:bg-slate-800 rounded-lg transition">
+                      <i className="fa-solid fa-bars text-lg"></i>
+                    </button>
+                    <div className="hidden sm:flex items-center space-x-2 text-sm text-blue-300">
+                      <i className="fa-solid fa-house text-xs"></i> <span>›</span> <span className="text-blue-100 font-medium">{t(currentView)}</span>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center space-x-3 sm:space-x-5">
+                    <div className="bg-slate-800 p-1 rounded-lg flex border border-slate-700">
+                      <button onClick={() => setLang('bn')} className={`px-2 py-1 rounded text-xs font-bold transition ${lang === 'bn' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-white'}`}>BN</button>
+                      <button onClick={() => setLang('en')} className={`px-2 py-1 rounded text-xs font-bold transition ${lang === 'en' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-white'}`}>EN</button>
+                    </div>
+
+                    <div className="flex items-center space-x-3 border-l border-slate-700 pl-4">
+                      <span className="text-sm font-medium hidden md:block text-blue-100">{currentUser.name}</span>
+                      {currentUser.avatar ? (
+                        <img src={currentUser.avatar} alt="Profile" className="w-8 h-8 rounded-full border-2 border-blue-500 object-cover" />
+                      ) : (
+                        <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center font-bold text-sm">
+                          {currentUser.name.charAt(0)}
+                        </div>
+                      )}
+                      <button onClick={handleLogout} className="p-2 ml-2 bg-slate-800 hover:bg-red-500/20 hover:text-red-400 rounded-lg text-slate-300 transition">
+                        <i className="fa-solid fa-right-from-bracket"></i>
+                      </button>
+                    </div>
+                  </div>
+                </header>
+
+                {/* Content Scrolling Area */}
+                <main className="flex-1 overflow-x-hidden overflow-y-auto bg-[#e2e8f0] p-4 sm:p-6 lg:p-8">
+                  <div className="max-w-7xl mx-auto">
+                    {currentView === 'dashboard' && <DashboardView user={currentUser} t={t} lang={lang} updateUser={updateUserProfile} />}
+                    {currentView === 'attendance' && <AttendanceView user={currentUser} attendances={attendances} setAttendances={setAttendances} t={t} lang={lang} />}
+                    {currentView === 'expenses' && <ExpenseView user={currentUser} expenses={expenses} setExpenses={setExpenses} t={t} />}
+                    {currentView === 'reports' && <ReportView user={currentUser} reports={reports} setReports={setReports} t={t} />}
+                    {currentView === 'employees' && currentUser.role === 'admin' && <EmployeesView users={users} setUsers={setUsers} t={t} lang={lang} />}
+                    {currentView === 'payments' && currentUser.role === 'admin' && <PaymentsView users={users} payments={payments} setPayments={setPayments} expenses={expenses} t={t} lang={lang} />}
+                  </div>
+                </main>
+              </div>
+            </div>
+          );
+        }
+
+        // ==========================================
+        // Sub-components
+        // ==========================================
+
+        function DashboardView({ user, t, lang, updateUser }) {
+          const handleAvatarUpload = (e) => {
+            const file = e.target.files[0];
+            if (file) {
+              const reader = new FileReader();
+              reader.onloadend = () => {
+                updateUser({ ...user, avatar: reader.result });
+              };
+              reader.readAsDataURL(file);
+            }
+          };
+
+          return (
+            <div className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col relative group">
+                  <div className="bg-gradient-to-r from-[#1e293b] to-[#0f172a] h-28 relative flex justify-center">
+                     <div className="absolute -bottom-12 w-28 h-28 bg-white rounded-xl border-4 border-white overflow-hidden flex items-center justify-center shadow-lg group">
+                        {user.avatar ? (
+                          <img src={user.avatar} alt="Profile" className="w-full h-full object-cover" />
+                        ) : (
+                          <img src={`https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=1e293b&color=fff&size=120`} alt="Profile" />
+                        )}
+                        <label className="absolute inset-0 bg-black/50 hidden group-hover:flex items-center justify-center cursor-pointer text-white flex-col transition-all">
+                          <i className="fa-solid fa-upload text-xl"></i>
+                          <span className="text-[10px] mt-1 font-bold">Upload</span>
+                          <input type="file" accept="image/*" onChange={handleAvatarUpload} className="hidden" />
+                        </label>
+                     </div>
+                  </div>
+                  <div className="pt-16 pb-6 text-center border-b border-slate-100">
+                    <h3 className="text-xl font-bold text-slate-800">{user.name}</h3>
+                    <p className="text-sm text-slate-500 mt-1">{user.loginId}</p>
+                  </div>
+                  <div className="p-5 flex-1 bg-slate-50/50">
+                    <div className="space-y-4 text-sm">
+                      <div className="flex items-center text-slate-700 bg-white p-3 rounded-lg border border-slate-100 shadow-sm">
+                        <i className="fa-solid fa-briefcase text-lg mr-3 text-blue-600"></i>
+                        <div>
+                          <p className="text-xs text-slate-400 font-medium mb-0.5">{t('designation')}</p>
+                          <p className="font-semibold">{user.designation}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center text-slate-700 bg-white p-3 rounded-lg border border-slate-100 shadow-sm">
+                        <i className="fa-solid fa-users text-lg mr-3 text-blue-600"></i>
+                        <div>
+                          <p className="text-xs text-slate-400 font-medium mb-0.5">{t('role')}</p>
+                          <p className="font-semibold capitalize">{user.role}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-white rounded-xl border border-slate-200 shadow-sm flex flex-col overflow-hidden">
+                  <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-4 text-center font-bold text-xl tracking-wider">
+                    <RealTimeClock lang={lang} />
+                  </div>
+                  <div className="flex-1 flex items-center justify-center p-6 bg-slate-50">
+                    <AnalogClock />
+                  </div>
+                </div>
+
+                <div className="bg-[#1e293b] text-white rounded-xl shadow-lg p-5 border border-slate-700">
+                  <BanglaCalendar lang={lang} />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="rounded-xl bg-white shadow-sm overflow-hidden border border-slate-200">
+                  <div className="bg-gradient-to-r from-blue-900 to-[#1e293b] text-white px-4 py-3 font-bold text-sm uppercase tracking-wider flex items-center">
+                    <i className="fa-solid fa-circle-check mr-2 text-blue-400"></i> {t('myTasks')}
+                  </div>
+                  <div className="p-6 h-40 flex flex-col items-center justify-center text-slate-400 bg-slate-50/50">
+                    <i className="fa-regular fa-file-lines text-3xl mb-2 opacity-50"></i>
+                    <p>{t('noTask')}</p>
+                  </div>
+                </div>
+                <div className="rounded-xl bg-white shadow-sm overflow-hidden border border-slate-200">
+                  <div className="bg-gradient-to-r from-blue-900 to-[#1e293b] text-white px-4 py-3 font-bold text-sm uppercase tracking-wider flex items-center">
+                    <i className="fa-regular fa-clock mr-2 text-blue-400"></i> {t('myActivity')}
+                  </div>
+                  <div className="p-6 h-40 flex flex-col items-center justify-center text-slate-400 bg-slate-50/50">
+                     <i className="fa-regular fa-clock text-3xl mb-2 opacity-50"></i>
+                     <p>{t('noActivity')}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        }
+
+        function AttendanceView({ user, attendances, setAttendances, t, lang }) {
+          const videoRef = useRef(null);
+          const canvasRef = useRef(null);
+          const [cameraActive, setCameraActive] = useState(false);
+          const [cameraError, setCameraError] = useState('');
+
+          const startCamera = async () => {
+            try {
+              const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: false });
+              if (videoRef.current) {
+                videoRef.current.srcObject = stream;
+                setCameraActive(true);
+                setCameraError('');
+              }
+            } catch (err) {
+              setCameraError(lang === 'bn' ? 'ক্যামেরা চালু করা সম্ভব হয়নি।' : 'Unable to access camera.');
+            }
+          };
+
+          const stopCamera = () => {
+            if (videoRef.current && videoRef.current.srcObject) {
+              videoRef.current.srcObject.getTracks().forEach(track => track.stop());
+              setCameraActive(false);
+            }
+          };
+
+          useEffect(() => {
+            if (user.role === 'employee') startCamera();
+            return () => stopCamera();
+          }, [user.role]);
+
+          const captureAndSubmit = () => {
+            if (!videoRef.current || !cameraActive) return;
+            const video = videoRef.current;
+            const canvas = canvasRef.current;
+            const context = canvas.getContext('2d');
+            
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            
+            const photoDataUrl = canvas.toDataURL('image/png');
+            const locale = lang === 'bn' ? 'bn-BD' : 'en-US';
+            const currentDate = new Intl.DateTimeFormat(locale, { timeZone: 'Asia/Dhaka', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
+            const currentTime = new Intl.DateTimeFormat(locale, { timeZone: 'Asia/Dhaka', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true }).format(new Date());
+
+            const newEntry = { id: Date.now(), userId: user.id, userName: user.name, date: currentDate, time: currentTime, photo: photoDataUrl };
+            setAttendances([newEntry, ...attendances]);
+            
+            const btn = document.getElementById('submit-att-btn');
+            if(btn) {
+              const originalText = btn.innerHTML;
+              btn.innerHTML = `<i class="fa-solid fa-check mr-2"></i> ${lang === 'bn' ? 'সফল হয়েছে!' : 'Success!'}`;
+              btn.classList.add('bg-green-600');
+              setTimeout(() => { btn.innerHTML = originalText; btn.classList.remove('bg-green-600'); }, 2000);
+            }
+          };
+
+          const myAttendances = user.role === 'admin' ? attendances : attendances.filter(a => a.userId === user.id);
+
+          return (
+            <div className="bg-white p-6 md:p-8 rounded-xl border border-slate-200 shadow-sm">
+              <h2 className="text-2xl font-bold text-slate-800 mb-6 border-b border-slate-100 pb-4">{t('attendance')}</h2>
+              
+              {user.role === 'employee' && (
+                <div className="mb-10 bg-slate-50 p-6 rounded-xl border border-slate-200">
+                  <div className="flex flex-col md:flex-row gap-8 items-start">
+                    <div className="w-full md:w-1/2 max-w-sm mx-auto md:mx-0">
+                      <div className="relative rounded-xl overflow-hidden border-4 border-slate-800 bg-black aspect-[3/4] md:aspect-video flex items-center justify-center shadow-lg">
+                        <video ref={videoRef} autoPlay playsInline muted className={`w-full h-full object-cover ${cameraActive ? 'block' : 'hidden'}`} style={{ transform: 'scaleX(-1)' }} />
+                        {!cameraActive && (
+                          <div className="text-slate-500 flex flex-col items-center text-center p-4">
+                            <i className="fa-solid fa-video-slash text-4xl mb-2 opacity-50"></i>
+                            <p className="text-sm">{cameraError || t('liveCamera')}</p>
+                            {cameraError && <button onClick={startCamera} className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm">Retry</button>}
+                          </div>
+                        )}
+                      </div>
+                      <canvas ref={canvasRef} className="hidden"></canvas>
+                    </div>
+
+                    <div className="flex-1 space-y-6 w-full">
+                      <div>
+                        <h3 className="text-xl font-bold text-slate-800 mb-2">{t('liveCamera')}</h3>
+                        <p className="text-slate-600 bg-blue-50 p-4 rounded-lg border border-blue-100">
+                          {lang === 'bn' ? 'ক্যামেরার দিকে তাকিয়ে সাবমিট বাটনে ক্লিক করুন। আপনার বর্তমান ছবি, তারিখ এবং সময় স্বয়ংক্রিয়ভাবে সেভ হবে।' : 'Look at the camera and click submit. Your photo, date, and time will be recorded automatically.'}
+                        </p>
+                      </div>
+                      <button id="submit-att-btn" onClick={captureAndSubmit} disabled={!cameraActive} className={`w-full md:w-auto px-8 py-4 rounded-xl text-lg font-bold flex items-center justify-center transition-all shadow-lg ${cameraActive ? 'bg-blue-600 text-white hover:bg-blue-700 hover:-translate-y-1' : 'bg-slate-300 text-slate-500 cursor-not-allowed'}`}>
+                        <i className="fa-solid fa-camera mr-3 text-xl"></i> {t('submitAttendance')}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <div>
+                <h3 className="text-lg font-bold text-slate-800 mb-4">{user.role === 'admin' ? t('allAtt') : t('attHistory')}</h3>
+                <div className="overflow-x-auto rounded-xl border border-slate-200">
+                  <table className="w-full text-left border-collapse">
+                    <thead>
+                      <tr className="bg-slate-100 text-slate-600 uppercase text-sm tracking-wider">
+                        <th className="p-4 font-semibold">{t('photo')}</th>
+                        <th className="p-4 font-semibold">{t('name')}</th>
+                        <th className="p-4 font-semibold">{t('date')}</th>
+                        <th className="p-4 font-semibold">{t('time')}</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-200">
+                      {myAttendances.length === 0 ? (
+                        <tr><td colSpan="4" className="p-8 text-center text-slate-500">{t('noRecord')}</td></tr>
+                      ) : (
+                        myAttendances.map(record => (
+                          <tr key={record.id} className="hover:bg-slate-50 transition">
+                            <td className="p-4"><img src={record.photo} alt="Selfie" className="w-14 h-14 rounded-lg object-cover border-2 border-slate-200" style={{ transform: 'scaleX(-1)' }} /></td>
+                            <td className="p-4 font-bold text-slate-800">{record.userName}</td>
+                            <td className="p-4 text-slate-600">{record.date}</td>
+                            <td className="p-4"><span className="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-bold border border-blue-200">{record.time}</span></td>
+                          </tr>
+                        ))
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          );
+        }
+
+        function ExpenseView({ user, expenses, setExpenses, t }) {
+          const [amount, setAmount] = useState('');
+          const [desc, setDesc] = useState('');
+
+          const submitExpense = (e) => {
+            e.preventDefault();
+            const newExp = { id: Date.now(), userId: user.id, userName: user.name, amount: parseFloat(amount), description: desc, date: new Date().toLocaleDateString('en-CA'), status: t('pending') };
+            setExpenses([newExp, ...expenses]);
+            setAmount(''); setDesc('');
+          };
+
+          const handleApprove = (id) => setExpenses(expenses.map(exp => exp.id === id ? { ...exp, status: t('approved') } : exp));
+          const displayExpenses = user.role === 'admin' ? expenses : expenses.filter(e => e.userId === user.id);
+
+          return (
+            <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+              <h2 className="text-2xl font-bold text-slate-800 mb-6 border-b border-slate-100 pb-4">{t('expenses')}</h2>
+              {user.role === 'employee' && (
+                <form onSubmit={submitExpense} className="mb-8 bg-blue-50/50 p-6 rounded-xl border border-blue-100 flex flex-col md:flex-row gap-4 items-end">
+                  <div className="w-full md:w-1/4">
+                    <label className="block text-sm font-bold text-slate-700 mb-2">{t('amount')}</label>
+                    <input type="number" value={amount} onChange={e => setAmount(e.target.value)} className="w-full border border-slate-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" required placeholder="0.00" />
+                  </div>
+                  <div className="w-full md:w-1/2">
+                    <label className="block text-sm font-bold text-slate-700 mb-2">{t('desc')}</label>
+                    <input type="text" value={desc} onChange={e => setDesc(e.target.value)} className="w-full border border-slate-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" required />
+                  </div>
+                  <button type="submit" className="w-full md:w-auto bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 font-bold whitespace-nowrap shadow-md transition">{t('addEntry')}</button>
+                </form>
+              )}
+
+              <div className="overflow-x-auto rounded-xl border border-slate-200">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="bg-slate-100 text-slate-600 uppercase text-sm tracking-wider">
+                      <th className="p-4 font-semibold">{t('date')}</th>
+                      {user.role === 'admin' && <th className="p-4 font-semibold">{t('name')}</th>}
+                      <th className="p-4 font-semibold">{t('desc')}</th>
+                      <th className="p-4 font-semibold">{t('amount')}</th>
+                      <th className="p-4 font-semibold">{t('status')}</th>
+                      <th className="p-4 font-semibold">{t('action')}</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-200">
+                    {displayExpenses.length === 0 ? (
+                      <tr><td colSpan="6" className="p-8 text-center text-slate-500">{t('noRecord')}</td></tr>
+                    ) : (
+                      displayExpenses.map(exp => (
+                        <tr key={exp.id} className="hover:bg-slate-50 transition">
+                          <td className="p-4 text-slate-600">{exp.date}</td>
+                          {user.role === 'admin' && <td className="p-4 font-bold text-slate-800">{exp.userName}</td>}
+                          <td className="p-4 text-slate-700">{exp.description}</td>
+                          <td className="p-4 font-bold text-blue-700 text-lg">৳ {exp.amount}</td>
+                          <td className="p-4"><span className={`px-3 py-1 text-xs rounded-full font-bold border ${exp.status === t('approved') ? 'bg-green-50 text-green-700 border-green-200' : 'bg-orange-50 text-orange-700 border-orange-200'}`}>{exp.status}</span></td>
+                          <td className="p-4 flex space-x-2">
+                            {user.role === 'admin' && exp.status !== t('approved') && (
+                              <button onClick={() => handleApprove(exp.id)} className="bg-green-600 hover:bg-green-700 text-white p-2 rounded-lg" title="Approve"><i className="fa-solid fa-check"></i></button>
+                            )}
+                            <button onClick={() => setExpenses(expenses.filter(e => e.id !== exp.id))} className="bg-red-500 hover:bg-red-600 text-white p-2 rounded-lg" title="Delete"><i className="fa-solid fa-trash-can"></i></button>
+                          </td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          );
+        }
+
+        function ReportView({ user, reports, setReports, t }) {
+          const [customers, setCustomers] = useState('');
+          const [reportText, setReportText] = useState('');
+
+          const submitReport = (e) => {
+            e.preventDefault();
+            setReports([{ id: Date.now(), userId: user.id, userName: user.name, customers: parseInt(customers) || 0, reportText: reportText, date: new Date().toLocaleDateString('en-CA') }, ...reports]);
+            setCustomers(''); setReportText('');
+          };
+
+          const displayReports = user.role === 'admin' ? reports : reports.filter(r => r.userId === user.id);
+
+          return (
+            <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+              <h2 className="text-2xl font-bold text-slate-800 mb-6 border-b border-slate-100 pb-4">{t('reports')}</h2>
+              {user.role === 'employee' && (
+                <form onSubmit={submitReport} className="mb-8 space-y-5 bg-blue-50/30 p-6 rounded-xl border border-blue-100">
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-2">{t('customers')}</label>
+                    <input type="number" value={customers} onChange={e => setCustomers(e.target.value)} className="w-full sm:w-1/3 border border-slate-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" required min="0" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-2">{t('reportDetails')}</label>
+                    <textarea value={reportText} onChange={e => setReportText(e.target.value)} className="w-full border border-slate-300 p-3 rounded-lg h-32 focus:ring-2 focus:ring-blue-500 outline-none" required></textarea>
+                  </div>
+                  <button type="submit" className="bg-[#1e293b] text-white px-8 py-3 rounded-lg hover:bg-slate-800 font-bold shadow-md transition">{t('submitReport')}</button>
+                </form>
+              )}
+              <div className="space-y-4">
+                {displayReports.length === 0 ? (
+                  <div className="p-8 text-center text-slate-500 border border-dashed border-slate-300 rounded-xl bg-slate-50">{t('noRecord')}</div>
+                ) : (
+                  displayReports.map(rep => (
+                    <div key={rep.id} className="border border-slate-200 rounded-xl p-5 shadow-sm bg-white">
+                      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 border-b border-slate-100 pb-3 gap-3">
+                        <div className="font-bold text-slate-800 text-lg">{rep.userName} <span className="text-sm font-medium text-slate-400 ml-2 bg-slate-100 px-2 py-1 rounded">📅 {rep.date}</span></div>
+                        <div className="bg-blue-100 text-blue-800 px-4 py-2 rounded-lg text-sm font-bold border border-blue-200 flex items-center"><i className="fa-solid fa-users mr-2"></i> Customers: {rep.customers}</div>
+                      </div>
+                      <p className="text-slate-700 whitespace-pre-wrap leading-relaxed">{rep.reportText}</p>
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
+          );
+        }
+
+        function EmployeesView({ users, setUsers, t, lang }) {
+          const [name, setName] = useState('');
+          const [loginId, setLoginId] = useState('');
+          const [password, setPassword] = useState('');
+          const [designation, setDesignation] = useState('');
+
+          const addUser = (e) => {
+            e.preventDefault();
+            setUsers([...users, { id: Date.now(), name, loginId, password, designation, role: 'employee', avatar: null }]);
+            setName(''); setLoginId(''); setPassword(''); setDesignation('');
+          };
+
+          const deleteUser = (id) => {
+            if(window.confirm(lang === 'bn' ? 'আপনি কি এই প্রোফাইলটি ডিলিট করতে চান?' : 'Are you sure you want to delete this profile?')) {
+              setUsers(users.filter(u => u.id !== id));
+            }
+          };
+
+          return (
+            <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+              <h2 className="text-2xl font-bold text-slate-800 mb-6 border-b border-slate-100 pb-4">{t('employees')}</h2>
+              <form onSubmit={addUser} className="mb-8 bg-slate-50 p-6 rounded-xl border border-slate-200 grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div><label className="block text-sm font-bold mb-2 text-slate-700">{t('name')}</label><input required value={name} onChange={e=>setName(e.target.value)} className="w-full border border-slate-300 p-3 rounded-lg focus:ring-blue-500" /></div>
+                <div><label className="block text-sm font-bold mb-2 text-slate-700">{t('loginID')}</label><input required value={loginId} onChange={e=>setLoginId(e.target.value)} className="w-full border border-slate-300 p-3 rounded-lg focus:ring-blue-500" /></div>
+                <div><label className="block text-sm font-bold mb-2 text-slate-700">{t('password')}</label><input required value={password} onChange={e=>setPassword(e.target.value)} className="w-full border border-slate-300 p-3 rounded-lg focus:ring-blue-500" /></div>
+                <div><label className="block text-sm font-bold mb-2 text-slate-700">{t('designation')}</label><input required value={designation} onChange={e=>setDesignation(e.target.value)} className="w-full border border-slate-300 p-3 rounded-lg focus:ring-blue-500" /></div>
+                <div className="md:col-span-2 mt-2"><button type="submit" className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 font-bold shadow-md">{lang === 'bn' ? 'নতুন প্রোফাইল তৈরি করুন' : 'Create Profile'}</button></div>
+              </form>
+              <div className="overflow-x-auto rounded-xl border border-slate-200">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="bg-slate-100 text-slate-600 uppercase text-sm tracking-wider">
+                      <th className="p-4 font-semibold">{t('name')}</th><th className="p-4 font-semibold">Login ID</th><th className="p-4 font-semibold">{t('password')}</th><th className="p-4 font-semibold">{t('designation')}</th><th className="p-4 font-semibold">{t('role')}</th><th className="p-4 font-semibold text-center">{t('action')}</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-200">
+                    {users.map(u => (
+                      <tr key={u.id} className="hover:bg-slate-50"><td className="p-4 font-bold text-slate-800">{u.name}</td><td className="p-4 text-blue-600 font-medium">{u.loginId}</td><td className="p-4 text-slate-500 font-mono bg-slate-50">{u.password}</td><td className="p-4 text-slate-600">{u.designation}</td><td className="p-4"><span className={`px-2 py-1 text-xs font-bold uppercase rounded ${u.role === 'admin' ? 'bg-purple-100 text-purple-800' : 'bg-slate-200 text-slate-800'}`}>{u.role}</span></td>
+                      <td className="p-4 text-center">
+                        {u.role !== 'admin' && (
+                          <button onClick={() => deleteUser(u.id)} className="bg-red-100 text-red-600 hover:bg-red-500 hover:text-white p-2 rounded-lg transition" title="Delete Profile">
+                            <i className="fa-solid fa-trash-can"></i>
+                          </button>
+                        )}
+                      </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          );
+        }
+
+        function PaymentsView({ users, payments, setPayments, expenses, t, lang }) {
+          const [empId, setEmpId] = useState('');
+          const [amount, setAmount] = useState('');
+          const [note, setNote] = useState('');
+
+          const addPayment = (e) => {
+            e.preventDefault();
+            const emp = users.find(u => u.id.toString() === empId);
+            if(!emp) return;
+            setPayments([{ id: Date.now(), userId: emp.id, userName: emp.name, amount: parseFloat(amount), note: note, date: new Date().toLocaleDateString('en-CA') }, ...payments]);
+            setAmount(''); setNote('');
+          };
+
+          const totalExpenses = expenses.filter(e => e.status === t('approved')).reduce((sum, e) => sum + e.amount, 0);
+          const totalPayments = payments.reduce((sum, p) => sum + p.amount, 0);
+
+          return (
+            <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+              <h2 className="text-2xl font-bold text-slate-800 mb-6 border-b border-slate-100 pb-4">{t('payments')}</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+                <div className="bg-orange-50 p-6 rounded-xl border border-orange-200 shadow-sm relative overflow-hidden">
+                  <p className="text-orange-800 text-sm font-bold uppercase tracking-wider mb-2">{lang === 'bn' ? 'মোট অনুমোদিত যাতায়াত খরচ' : 'Total Approved Expenses'}</p>
+                  <p className="text-4xl font-black text-orange-600">৳ {totalExpenses.toLocaleString()}</p>
+                </div>
+                <div className="bg-green-50 p-6 rounded-xl border border-green-200 shadow-sm relative overflow-hidden">
+                  <p className="text-green-800 text-sm font-bold uppercase tracking-wider mb-2">{lang === 'bn' ? 'মোট প্রদানকৃত পেমেন্ট' : 'Total Payments Given'}</p>
+                  <p className="text-4xl font-black text-green-600">৳ {totalPayments.toLocaleString()}</p>
+                </div>
+              </div>
+              <form onSubmit={addPayment} className="mb-10 bg-slate-50 p-6 rounded-xl border border-slate-200 grid grid-cols-1 md:grid-cols-3 gap-5 items-end">
+                <div><label className="block text-sm font-bold mb-2 text-slate-700">{lang === 'bn' ? 'কর্মচারী' : 'Employee'}</label><select required value={empId} onChange={e=>setEmpId(e.target.value)} className="w-full border border-slate-300 p-3 rounded-lg focus:ring-blue-500 bg-white"><option value="">{lang === 'bn' ? 'নির্বাচন করুন' : 'Select Employee'}</option>{users.filter(u=>u.role==='employee').map(u => <option key={u.id} value={u.id}>{u.name}</option>)}</select></div>
+                <div><label className="block text-sm font-bold mb-2 text-slate-700">{t('amount')}</label><input type="number" required value={amount} onChange={e=>setAmount(e.target.value)} className="w-full border border-slate-300 p-3 rounded-lg focus:ring-blue-500" /></div>
+                <div><label className="block text-sm font-bold mb-2 text-slate-700">Note</label><input required value={note} onChange={e=>setNote(e.target.value)} className="w-full border border-slate-300 p-3 rounded-lg focus:ring-blue-500" /></div>
+                <div className="md:col-span-3"><button type="submit" className="bg-[#1e293b] text-white px-8 py-3 rounded-lg hover:bg-slate-800 font-bold shadow-md">{lang === 'bn' ? 'পেমেন্ট এন্ট্রি করুন' : 'Add Payment Record'}</button></div>
+              </form>
+              <div className="overflow-x-auto rounded-xl border border-slate-200">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="bg-slate-100 text-slate-600 uppercase text-sm tracking-wider">
+                      <th className="p-4 font-semibold">{t('date')}</th><th className="p-4 font-semibold">{t('name')}</th><th className="p-4 font-semibold">Note</th><th className="p-4 font-semibold">{t('amount')}</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-200">
+                    {payments.map(p => (
+                      <tr key={p.id} className="hover:bg-slate-50"><td className="p-4 text-slate-600">{p.date}</td><td className="p-4 font-bold text-slate-800">{p.userName}</td><td className="p-4 text-slate-600">{p.note}</td><td className="p-4 font-black text-green-600 text-lg">৳ {p.amount}</td></tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          );
+        }
+
+        function SidebarItem({ icon, label, active, onClick }) {
+          return (
+            <button onClick={onClick} className={`w-full flex items-center px-4 py-3.5 mb-1 text-sm rounded-lg transition-all duration-200 font-medium ${active ? 'bg-blue-600 text-white shadow-md shadow-blue-900/50' : 'text-slate-300 hover:bg-slate-800 hover:text-white'}`}>
+              <i className={`fa-solid ${icon} w-6 text-center mr-2 ${active ? 'text-white' : 'text-blue-400'}`}></i> {label}
+            </button>
+          );
+        }
+
+        function RealTimeClock({ lang }) {
+          const [time, setTime] = useState(new Date());
+          useEffect(() => { const timer = setInterval(() => setTime(new Date()), 1000); return () => clearInterval(timer); }, []);
+          const locale = lang === 'bn' ? 'bn-BD' : 'en-US';
+          return <span>{new Intl.DateTimeFormat(locale, { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true }).format(time)}</span>;
+        }
+
+        function AnalogClock() {
+          const [time, setTime] = useState(new Date());
+          useEffect(() => { const timer = setInterval(() => setTime(new Date()), 1000); return () => clearInterval(timer); }, []);
+          const secDeg = time.getSeconds() * 6, minDeg = time.getMinutes() * 6 + time.getSeconds() * 0.1, hrDeg = (time.getHours() % 12) * 30 + time.getMinutes() * 0.5;
+          return (
+            <div className="relative w-48 h-48 rounded-full border-[6px] border-slate-200 shadow-[inset_0_2px_15px_rgba(0,0,0,0.1)] bg-white flex items-center justify-center">
+              <span className="absolute top-2 text-sm font-bold text-slate-400">12</span><span className="absolute right-3 text-sm font-bold text-slate-400">3</span><span className="absolute bottom-2 text-sm font-bold text-slate-400">6</span><span className="absolute left-3 text-sm font-bold text-slate-400">9</span>
+              <div className="absolute w-1.5 h-12 bg-slate-800 rounded-full origin-bottom" style={{ transform: `translateY(-50%) rotate(${hrDeg}deg)` }}></div>
+              <div className="absolute w-1 h-16 bg-blue-600 rounded-full origin-bottom" style={{ transform: `translateY(-50%) rotate(${minDeg}deg)` }}></div>
+              <div className="absolute w-0.5 h-20 bg-red-500 rounded-full origin-bottom" style={{ transform: `translateY(-50%) rotate(${secDeg}deg)` }}></div>
+              <div className="w-4 h-4 bg-slate-800 border-2 border-white rounded-full z-10 absolute shadow-sm"></div>
+            </div>
+          );
+        }
+
+        function BanglaCalendar({ lang }) {
+          const today = new Date();
+          const locale = lang === 'bn' ? 'bn-BD' : 'en-US';
+          const monthYear = new Intl.DateTimeFormat(locale, { month: 'long', year: 'numeric' }).format(today);
+          const daysInWeek = lang === 'bn' ? ['রবি', 'সোম', 'মঙ্গল', 'বুধ', 'বৃহঃ', 'শুক্র', 'শনি'] : ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+          const year = today.getFullYear(), month = today.getMonth();
+          const firstDay = new Date(year, month, 1).getDay(), daysInMonth = new Date(year, month + 1, 0).getDate();
+          
+          return (
+            <div>
+              <div className="flex justify-between items-center mb-5 pb-3 border-b border-slate-600">
+                <button className="w-8 h-8 flex items-center justify-center bg-slate-800 rounded-full text-sm hover:bg-blue-600 transition">&lt;</button>
+                <span className="text-xl font-bold tracking-wide">{monthYear}</span>
+                <button className="w-8 h-8 flex items-center justify-center bg-slate-800 rounded-full text-sm hover:bg-blue-600 transition">&gt;</button>
+              </div>
+              <div className="grid grid-cols-7 gap-2 text-center text-sm">
+                {daysInWeek.map(d => <div key={d} className="text-blue-400 font-bold py-1 text-xs uppercase">{d}</div>)}
+                {Array(firstDay).fill(null).map((_, i) => <div key={`blank-${i}`} className="py-2"></div>)}
+                {Array.from({length: daysInMonth}, (_, i) => i + 1).map(d => (
+                  <div key={d} className={`py-1.5 rounded-lg flex items-center justify-center transition-colors ${d === today.getDate() ? 'bg-blue-500 text-white font-bold shadow-lg shadow-blue-500/40' : 'hover:bg-slate-700 text-slate-300'}`}>
+                    {new Intl.NumberFormat(locale).format(d)}
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+        }
+
+        // --- Render App ---
+        const rootElement = document.getElementById('root');
+        const root = ReactDOM.createRoot(rootElement);
+        root.render(<App />);
+    </script>
+</body>
+</html>
