@@ -34,7 +34,7 @@
         .scrollbar-hide::-webkit-scrollbar { display: none; }
         .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
         
-        /* Custom Animations */
+        /* Custom Animations for Popups */
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -48,9 +48,6 @@
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
 
-        // ==========================================
-        // 🔴 ফায়ারবেস ক্লাউড ডাটাবেস সেটআপ
-        // ==========================================
         const firebaseConfig = {
             apiKey: "AIzaSyBmJGTuAvMF9FM6MwOSi4BZqFmGyqb2Yd0",
             authDomain: "goti-express.firebaseapp.com",
@@ -65,9 +62,6 @@
         }
         const db = firebase.firestore();
 
-        // ==========================================
-        // 🟢 কাস্টম হুকস (Custom Hooks)
-        // ==========================================
         function useLocalStorage(key, initialValue) {
           const [storedValue, setStoredValue] = useState(() => {
             try {
@@ -127,7 +121,6 @@
             return [data, addData, updateData, deleteData];
         }
 
-        // টাইমস্ট্যাম্প হেল্পার ফাংশন
         const getCurrentTimeStr = () => {
             return new Intl.DateTimeFormat('bn-BD', {
                 timeZone: 'Asia/Dhaka', year: 'numeric', month: 'short', day: 'numeric', 
@@ -140,9 +133,6 @@
           { id: 2, name: 'স্বাধীন আহমেদ তামিম', loginId: '01813910850', password: '01813910850', role: 'employee', designation: 'Technician At Goti Express', avatar: null }
         ];
 
-        // ==========================================
-        // 🟡 Main App Component
-        // ==========================================
         function App() {
           const [isLoggedIn, setIsLoggedIn] = useLocalStorage('goti_isLoggedIn', false);
           const [currentUser, setCurrentUser] = useLocalStorage('goti_currentUser', null);
@@ -258,7 +248,7 @@
 
               <div className="flex-1 flex flex-col h-screen overflow-hidden relative">
                 <header className="hidden md:flex h-16 bg-[#0f172a] text-white items-center justify-between px-6 shrink-0 shadow-md z-10">
-                  <div className="flex items-center space-x-2 text-sm text-blue-300"><i className="fa-solid fa-house text-xs"></i> <span>›</span> <span className="text-blue-100 font-medium capitalize">{currentView}</span></div>
+                  <div className="flex items-center space-x-2 text-sm text-blue-300"><i className="fa-solid fa-house text-xs"></i> <span>›</span> <span className="text-blue-100 font-medium capitalize">{currentView === 'employees' ? 'স্টাফ প্রোফাইল' : currentView === 'attendance' ? 'উপস্থিতি' : currentView === 'leave' ? 'ছুটি' : currentView === 'expenses' ? 'যাতায়াত ও অন্যান্য বিল' : currentView === 'reports' ? 'ডেইলি রিপোর্ট' : currentView === 'salary' ? 'বেতন' : currentView === 'payments' ? 'পেমেন্ট' : 'ড্যাশবোর্ড'}</span></div>
                   <div className="flex items-center space-x-5">
                     <div className="flex items-center space-x-3 pl-5">
                       <div className="text-right"><p className="text-sm font-medium text-blue-50 leading-tight">{currentUser.name}</p><p className="text-xs text-blue-400 capitalize">{currentUser.role === 'admin' ? 'এডমিন' : 'স্টাফ'}</p></div>
@@ -268,7 +258,7 @@
                 </header>
 
                 <header className="md:hidden h-14 bg-[#0f172a] text-white flex items-center justify-between px-4 shrink-0 shadow-md z-10">
-                  <div className="flex items-center gap-2"><img src="https://i.ibb.co.com/fGYvBbLs/white-goti.png" alt="Logo" className="h-6 object-contain" /><span className="font-bold text-blue-100 capitalize">{currentView}</span></div>
+                  <div className="flex items-center gap-2"><img src="https://i.ibb.co.com/fGYvBbLs/white-goti.png" alt="Logo" className="h-6 object-contain" /><span className="font-bold text-blue-100 capitalize">{currentView === 'employees' ? 'স্টাফ' : currentView === 'attendance' ? 'উপস্থিতি' : currentView === 'leave' ? 'ছুটি' : currentView === 'expenses' ? 'বিল' : currentView === 'reports' ? 'রিপোর্ট' : currentView === 'salary' ? 'বেতন' : currentView === 'payments' ? 'পেমেন্ট' : 'ড্যাশবোর্ড'}</span></div>
                 </header>
 
                 <main className="flex-1 overflow-x-hidden overflow-y-auto bg-[#e2e8f0] p-4 pb-24 md:pb-6 sm:p-6 lg:p-8">
@@ -315,9 +305,14 @@
           );
         }
 
-        // ==========================================
-        // 🔵 Views Components
-        // ==========================================
+        function SidebarItem({ icon, label, active, onClick }) {
+          return (
+            <button onClick={onClick} className={`w-full flex items-center px-4 py-3.5 mb-1 text-sm rounded-xl transition-all duration-200 font-medium ${active ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/50' : 'text-slate-300 hover:bg-slate-800 hover:text-white'}`}>
+              <i className={`fa-solid ${icon} w-6 text-center mr-3 text-lg ${active ? 'text-white' : 'text-blue-400'}`}></i> {label}
+            </button>
+          );
+        }
+
         function BottomNavItem({ icon, label, active, onClick }) {
           return (
             <button onClick={onClick} className={`flex flex-col items-center justify-center w-16 h-full transition-colors ${active ? 'text-blue-600' : 'text-slate-400'}`}>
@@ -710,7 +705,6 @@
           );
         }
 
-        // --- Salary Setup & Status View ---
         function SalaryView({ user, users, salaries, addSalary, updateSalary, deleteSalary, showAlert, showConfirm }) {
            const [editingSalId, setEditingSalId] = useState(null);
            const [empId, setEmpId] = useState(''); const [month, setMonth] = useState(''); const [baseSalary, setBaseSalary] = useState('');
