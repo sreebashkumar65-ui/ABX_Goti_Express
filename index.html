@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Goti Express - Employee Management System</title>
+    <title>গতি এক্সপ্রেস - এমপ্লয়ি ম্যানেজমেন্ট সিস্টেম</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- React & ReactDOM -->
     <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
@@ -26,8 +26,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
     <style>
-        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
-        .font-bn { font-family: 'Hind Siliguri', sans-serif; }
+        body { font-family: 'Hind Siliguri', sans-serif; -webkit-tap-highlight-color: transparent; }
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
@@ -122,30 +121,6 @@
             return [data, addData, updateData, deleteData];
         }
 
-        // --- Translations ---
-        const translations = {
-          bn: {
-            appName: 'গতি এক্সপ্রেস', subtitle: 'এমপ্লয়ি ম্যানেজমেন্ট সিস্টেম', loginID: 'লগইন আইডি', password: 'পাসওয়ার্ড', loginBtn: 'লগইন করুন',
-            home: 'ড্যাশবোর্ড', employees: 'কর্মচারী প্রোফাইল', attendance: 'উপস্থিতি', expenses: 'যাতায়াত ও অন্যান্য বিল', reports: 'ডেইলি রিপোর্ট', payments: 'পেমেন্ট', leave: 'ছুটি', applyLeave: 'ছুটির আবেদন', reason: 'ছুটির কারণ', startDate: 'শুরুর তারিখ', endDate: 'শেষ তারিখ', present: 'উপস্থিত', absent: 'অনুপস্থিত', editProfile: 'প্রোফাইল আপডেট', reject: 'বাতিল',
-            role: 'রোল', designation: 'পদবী', myTasks: 'আমার টাস্ক লিস্ট', myActivity: 'আমার একটিভিটি', noTask: 'কোনো নতুন টাস্ক নেই', noActivity: 'কোনো একটিভিটি নেই',
-            liveCamera: 'লাইভ ক্যামেরা (সেলফি)', submitAttendance: 'উপস্থিতি সাবমিট করুন', attHistory: 'উপস্থিতির ইতিহাস', allAtt: 'সকল কর্মচারীর উপস্থিতি', todaysStatus: "আজকের উপস্থিতি", allHistory: "সকল উপস্থিতির ইতিহাস", locWarning: "লোকেশন (GPS) চালু করুন! অন্যথায় উপস্থিতি দেওয়া যাবে না।",
-            photo: 'ছবি', name: 'নাম', date: 'তারিখ', time: 'সময়', location: 'লোকেশন', mapLink: 'ম্যাপে দেখুন', noRecord: 'কোনো রেকর্ড পাওয়া যায়নি', amount: 'পরিমাণ (৳)', desc: 'বিবরণ/স্থান', category: 'ধরন', travelExp: 'যাতায়াত', otherExp: 'অন্যান্য বিল',
-            addEntry: 'এন্ট্রি করুন', status: 'স্ট্যাটাস', action: 'অ্যাকশন', pending: 'অপেক্ষমান', approved: 'অনুমোদিত', paid: 'পেইড', rejectReason: 'বাতিলের কারণ', markPaid: 'পে করুন',
-            customers: 'কাস্টমার সাপোর্ট দিয়েছেন?', reportDetails: 'কাজের বিস্তারিত বিবরণ', submitReport: 'রিপোর্ট জমা দিন', uploadPic: 'ছবি পরিবর্তন করুন', menu: 'মেনু',
-            salaryStatus: 'বেতনের স্ট্যাটাস', baseSalary: 'মূল বেতন', deductions: 'কর্তন', netSalary: 'প্রাপ্য বেতন', history: 'হিস্টোরি (মাসিক)', paymentEntry: 'পেমেন্ট এন্ট্রি করুন', setSalary: 'বেতন সেটআপ করুন'
-          },
-          en: {
-            appName: 'Goti Express', subtitle: 'Employee Management System', loginID: 'Login ID', password: 'Password', loginBtn: 'Login',
-            home: 'Dashboard', employees: 'Employee Profiles', attendance: 'Attendance', expenses: 'Travel & Bills', reports: 'Daily Reports', payments: 'Payments', leave: 'Leave', applyLeave: 'Apply Leave', reason: 'Reason', startDate: 'Start Date', endDate: 'End Date', present: 'Present', absent: 'Absent', editProfile: 'Update Profile', reject: 'Reject',
-            role: 'Role', designation: 'Designation', myTasks: 'MY TASK LIST', myActivity: 'MY ACTIVITY LIST', noTask: 'No new tasks', noActivity: 'No activity found',
-            liveCamera: 'Live Camera', submitAttendance: 'Submit Attendance', attHistory: 'My Attendance', allAtt: 'All Employees Attendance', todaysStatus: "Today's Status", allHistory: "All History", locWarning: "Please enable Location (GPS) to submit attendance.",
-            photo: 'Photo', name: 'Name', date: 'Date', time: 'Time', location: 'Location', mapLink: 'View Map', noRecord: 'No records found', amount: 'Amount (৳)', desc: 'Description', category: 'Category', travelExp: 'Travel', otherExp: 'Other Bills',
-            addEntry: 'Add Entry', status: 'Status', action: 'Action', pending: 'Pending', approved: 'Approved', paid: 'Paid', rejectReason: 'Reject Reason', markPaid: 'Pay',
-            customers: 'Customers Supported?', reportDetails: 'Work Details', submitReport: 'Submit Report', uploadPic: 'Change Photo', menu: 'Menu',
-            salaryStatus: 'Salary Status', baseSalary: 'Base Salary', deductions: 'Deductions', netSalary: 'Net Salary', history: 'Monthly History', paymentEntry: 'Add Payment', setSalary: 'Setup Salary'
-          }
-        };
-
         const initialUsers = [
           { id: 1, name: 'Admin', loginId: 'sreebashkumar65@gmail.com', password: '01815151122', role: 'admin', designation: 'Administrator', avatar: null },
           { id: 2, name: 'স্বাধীন আহমেদ তামিম', loginId: '01813910850', password: '01813910850', role: 'employee', designation: 'Technician At Goti Express', avatar: null }
@@ -155,9 +130,6 @@
         // 🟡 Main App Component
         // ==========================================
         function App() {
-          const [lang, setLang] = useLocalStorage('goti_lang', 'bn');
-          const t = (key) => translations[lang][key] || key;
-
           const [isLoggedIn, setIsLoggedIn] = useLocalStorage('goti_isLoggedIn', false);
           const [currentUser, setCurrentUser] = useLocalStorage('goti_currentUser', null);
           const [currentView, setCurrentView] = useLocalStorage('goti_currentView', 'dashboard');
@@ -169,10 +141,8 @@
           const [expenses, addExpense, updateExpense, deleteExpense] = useDatabase('expenses', []);
           const [reports, addReport, updateReport, deleteReport] = useDatabase('reports', []);
           const [payments, addPayment] = useDatabase('payments', []);
+          const [salaries, addSalary, updateSalary, deleteSalary] = useDatabase('salaries', []); // New Salary Database
 
-          const fontClass = lang === 'bn' ? "font-bn" : "";
-
-          // Ensure currentUser updates if their profile is updated by admin or themselves
           useEffect(() => {
               if (currentUser) {
                   const updatedMe = users.find(u => u.id === currentUser.id);
@@ -188,11 +158,11 @@
             const password = e.target.password.value;
             const user = users.find(u => u.loginId === loginId && u.password === password);
             if (user) { setCurrentUser(user); setIsLoggedIn(true); setCurrentView('dashboard'); } 
-            else { alert(lang === 'bn' ? 'লগইন আইডি অথবা পাসওয়ার্ড ভুল হয়েছে!' : 'Invalid Login ID or Password!'); }
+            else { alert('লগইন আইডি অথবা পাসওয়ার্ড ভুল হয়েছে!'); }
           };
 
           const handleLogout = () => {
-            if(window.confirm(lang === 'bn' ? 'আপনি কি লগআউট করতে চান?' : 'Are you sure you want to logout?')) {
+            if(window.confirm('আপনি কি লগআউট করতে চান?')) {
               setIsLoggedIn(false); setCurrentUser(null);
             }
           };
@@ -204,29 +174,25 @@
 
           if (!isLoggedIn) {
             return (
-              <div className={`min-h-screen bg-[#0f172a] flex flex-col items-center justify-center p-4 ${fontClass}`}>
-                <div className="absolute top-4 right-4 bg-white/10 p-1 rounded-lg backdrop-blur-sm flex border border-white/20">
-                  <button onClick={() => setLang('bn')} className={`px-3 py-1 rounded-md text-sm font-bold transition ${lang === 'bn' ? 'bg-blue-600 text-white' : 'text-blue-200 hover:text-white'}`}>বাংলা</button>
-                  <button onClick={() => setLang('en')} className={`px-3 py-1 rounded-md text-sm font-bold transition ${lang === 'en' ? 'bg-blue-600 text-white' : 'text-blue-200 hover:text-white'}`}>EN</button>
-                </div>
+              <div className="min-h-screen bg-[#0f172a] flex flex-col items-center justify-center p-4">
                 <div className="mb-6 flex justify-center">
                    <img src="https://i.ibb.co.com/fGYvBbLs/white-goti.png" alt="Logo" className="h-28 object-contain drop-shadow-2xl" />
                 </div>
                 <div className="max-w-md w-full bg-[#1e293b] border border-blue-900/50 rounded-2xl shadow-2xl p-8">
                   <div className="text-center mb-8">
-                    <h1 className="text-3xl font-bold text-blue-400 mb-2">{t('appName')}</h1>
-                    <p className="text-blue-200/60 text-sm">{t('subtitle')}</p>
+                    <h1 className="text-3xl font-bold text-blue-400 mb-2">গতি এক্সপ্রেস</h1>
+                    <p className="text-blue-200/60 text-sm">এমপ্লয়ি ম্যানেজমেন্ট সিস্টেম</p>
                   </div>
                   <form onSubmit={handleLogin} className="space-y-6">
                     <div>
-                      <label className="block text-sm font-medium text-blue-200 mb-2 pl-1">{t('loginID')}</label>
-                      <div className="relative"><i className="fa-solid fa-user absolute left-4 top-3.5 text-slate-400"></i><input type="text" name="loginId" className="w-full pl-11 pr-4 py-3 bg-[#0f172a] border border-slate-600 rounded-xl text-white focus:ring-2 focus:ring-blue-500 outline-none" required placeholder="Phone/Email" /></div>
+                      <label className="block text-sm font-medium text-blue-200 mb-2 pl-1">লগইন আইডি</label>
+                      <div className="relative"><i className="fa-solid fa-user absolute left-4 top-3.5 text-slate-400"></i><input type="text" name="loginId" className="w-full pl-11 pr-4 py-3 bg-[#0f172a] border border-slate-600 rounded-xl text-white focus:ring-2 focus:ring-blue-500 outline-none" required placeholder="ফোন বা ইমেইল" /></div>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-blue-200 mb-2 pl-1">{t('password')}</label>
+                      <label className="block text-sm font-medium text-blue-200 mb-2 pl-1">পাসওয়ার্ড</label>
                       <div className="relative"><i className="fa-solid fa-lock absolute left-4 top-3.5 text-slate-400"></i><input type="password" name="password" className="w-full pl-11 pr-4 py-3 bg-[#0f172a] border border-slate-600 rounded-xl text-white focus:ring-2 focus:ring-blue-500 outline-none" required placeholder="••••••••" /></div>
                     </div>
-                    <button type="submit" className="w-full bg-blue-600 text-white py-3.5 rounded-xl hover:bg-blue-700 font-bold shadow-lg shadow-blue-900/50 mt-4 text-lg">{t('loginBtn')}</button>
+                    <button type="submit" className="w-full bg-blue-600 text-white py-3.5 rounded-xl hover:bg-blue-700 font-bold shadow-lg shadow-blue-900/50 mt-4 text-lg">লগইন করুন</button>
                   </form>
                 </div>
               </div>
@@ -234,89 +200,80 @@
           }
 
           return (
-            <div className={`flex h-screen bg-[#f1f5f9] overflow-hidden ${fontClass}`}>
+            <div className="flex h-screen bg-[#f1f5f9] overflow-hidden">
               {sidebarOpen && <div className="md:hidden fixed inset-0 bg-slate-900/60 z-40 backdrop-blur-sm" onClick={() => setSidebarOpen(false)}></div>}
 
               <div className={`fixed inset-y-0 left-0 z-50 w-72 md:w-64 transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0 transition-transform duration-300 ease-in-out bg-[#1e293b] flex flex-col shadow-2xl`}>
                 <div className="p-4 bg-[#0f172a] flex items-center justify-between md:justify-center h-16 shrink-0 border-b border-slate-700">
-                  <div className="flex items-center gap-3"><img src="https://i.ibb.co.com/fGYvBbLs/white-goti.png" alt="Logo" className="h-8 object-contain" /><h2 className="text-xl font-bold text-blue-400 truncate">{t('appName')}</h2></div>
+                  <div className="flex items-center gap-3"><img src="https://i.ibb.co.com/fGYvBbLs/white-goti.png" alt="Logo" className="h-8 object-contain" /><h2 className="text-xl font-bold text-blue-400 truncate">গতি এক্সপ্রেস</h2></div>
                   <button className="md:hidden text-slate-400 p-2" onClick={() => setSidebarOpen(false)}><i className="fa-solid fa-xmark text-xl"></i></button>
                 </div>
                 
                 <div className="md:hidden p-4 border-b border-slate-700/50 bg-slate-800/30 flex items-center gap-3">
                     {currentUser.avatar ? <img src={currentUser.avatar} className="w-10 h-10 rounded-full border-2 border-blue-500 object-cover" /> : <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center font-bold text-white shadow-md">{currentUser.name.charAt(0)}</div>}
-                    <div className="overflow-hidden"><p className="text-white font-bold truncate">{currentUser.name}</p><p className="text-blue-300 text-xs truncate capitalize">{currentUser.role}</p></div>
+                    <div className="overflow-hidden"><p className="text-white font-bold truncate">{currentUser.name}</p><p className="text-blue-300 text-xs truncate capitalize">{currentUser.role === 'admin' ? 'এডমিন' : 'কর্মচারী'}</p></div>
                 </div>
 
                 <div className="flex-1 overflow-y-auto py-4">
                   <nav className="space-y-1.5 px-3">
-                    <SidebarItem icon="fa-house" label={t('home')} active={currentView === 'dashboard'} onClick={() => {setCurrentView('dashboard'); setSidebarOpen(false);}} />
-                    {currentUser.role === 'admin' && <SidebarItem icon="fa-users" label={t('employees')} active={currentView === 'employees'} onClick={() => {setCurrentView('employees'); setSidebarOpen(false);}} />}
-                    <SidebarItem icon="fa-user-check" label={t('attendance')} active={currentView === 'attendance'} onClick={() => {setCurrentView('attendance'); setSidebarOpen(false);}} />
-                    <SidebarItem icon="fa-calendar-day" label={t('leave')} active={currentView === 'leave'} onClick={() => {setCurrentView('leave'); setSidebarOpen(false);}} />
-                    <SidebarItem icon="fa-money-bill-wave" label={t('expenses')} active={currentView === 'expenses'} onClick={() => {setCurrentView('expenses'); setSidebarOpen(false);}} />
-                    <SidebarItem icon="fa-file-lines" label={t('reports')} active={currentView === 'reports'} onClick={() => {setCurrentView('reports'); setSidebarOpen(false);}} />
-                    {currentUser.role === 'admin' && <SidebarItem icon="fa-briefcase" label={t('payments')} active={currentView === 'payments'} onClick={() => {setCurrentView('payments'); setSidebarOpen(false);}} />}
+                    <SidebarItem icon="fa-house" label="ড্যাশবোর্ড" active={currentView === 'dashboard'} onClick={() => {setCurrentView('dashboard'); setSidebarOpen(false);}} />
+                    {currentUser.role === 'admin' && <SidebarItem icon="fa-users" label="কর্মচারী প্রোফাইল" active={currentView === 'employees'} onClick={() => {setCurrentView('employees'); setSidebarOpen(false);}} />}
+                    <SidebarItem icon="fa-user-check" label="উপস্থিতি" active={currentView === 'attendance'} onClick={() => {setCurrentView('attendance'); setSidebarOpen(false);}} />
+                    <SidebarItem icon="fa-calendar-day" label="ছুটি" active={currentView === 'leave'} onClick={() => {setCurrentView('leave'); setSidebarOpen(false);}} />
+                    <SidebarItem icon="fa-money-bill-wave" label="যাতায়াত ও অন্যান্য বিল" active={currentView === 'expenses'} onClick={() => {setCurrentView('expenses'); setSidebarOpen(false);}} />
+                    <SidebarItem icon="fa-file-lines" label="ডেইলি রিপোর্ট" active={currentView === 'reports'} onClick={() => {setCurrentView('reports'); setSidebarOpen(false);}} />
+                    <SidebarItem icon="fa-sack-dollar" label="বেতন" active={currentView === 'salary'} onClick={() => {setCurrentView('salary'); setSidebarOpen(false);}} />
+                    {currentUser.role === 'admin' && <SidebarItem icon="fa-briefcase" label="হিসাব ও পেমেন্ট" active={currentView === 'payments'} onClick={() => {setCurrentView('payments'); setSidebarOpen(false);}} />}
                   </nav>
                 </div>
                 
                 <div className="p-4 border-t border-slate-700 bg-[#0f172a]/50">
-                   <button onClick={handleLogout} className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-red-500/10 text-red-400 rounded-xl hover:bg-red-500 hover:text-white transition-colors font-semibold"><i className="fa-solid fa-power-off"></i> Logout</button>
+                   <button onClick={handleLogout} className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-red-500/10 text-red-400 rounded-xl hover:bg-red-500 hover:text-white transition-colors font-semibold"><i className="fa-solid fa-power-off"></i> লগআউট</button>
                 </div>
               </div>
 
               <div className="flex-1 flex flex-col h-screen overflow-hidden relative">
                 <header className="hidden md:flex h-16 bg-[#0f172a] text-white items-center justify-between px-6 shrink-0 shadow-md z-10">
-                  <div className="flex items-center space-x-2 text-sm text-blue-300"><i className="fa-solid fa-house text-xs"></i> <span>›</span> <span className="text-blue-100 font-medium">{t(currentView)}</span></div>
+                  <div className="flex items-center space-x-2 text-sm text-blue-300"><i className="fa-solid fa-house text-xs"></i> <span>›</span> <span className="text-blue-100 font-medium capitalize">{currentView}</span></div>
                   <div className="flex items-center space-x-5">
-                    <div className="bg-slate-800 p-1 rounded-lg flex border border-slate-700">
-                      <button onClick={() => setLang('bn')} className={`px-3 py-1 rounded text-xs font-bold transition ${lang === 'bn' ? 'bg-blue-600 text-white shadow' : 'text-slate-400 hover:text-white'}`}>BN</button>
-                      <button onClick={() => setLang('en')} className={`px-3 py-1 rounded text-xs font-bold transition ${lang === 'en' ? 'bg-blue-600 text-white shadow' : 'text-slate-400 hover:text-white'}`}>EN</button>
-                    </div>
-                    <div className="flex items-center space-x-3 border-l border-slate-700 pl-5">
-                      <div className="text-right"><p className="text-sm font-medium text-blue-50 leading-tight">{currentUser.name}</p><p className="text-xs text-blue-400 capitalize">{currentUser.role}</p></div>
+                    <div className="flex items-center space-x-3 pl-5">
+                      <div className="text-right"><p className="text-sm font-medium text-blue-50 leading-tight">{currentUser.name}</p><p className="text-xs text-blue-400 capitalize">{currentUser.role === 'admin' ? 'এডমিন' : 'কর্মচারী'}</p></div>
                       {currentUser.avatar ? <img src={currentUser.avatar} className="w-9 h-9 rounded-full border-2 border-blue-500 object-cover" /> : <div className="w-9 h-9 bg-blue-600 rounded-full flex items-center justify-center font-bold text-sm shadow">{currentUser.name.charAt(0)}</div>}
                     </div>
                   </div>
                 </header>
 
                 <header className="md:hidden h-14 bg-[#0f172a] text-white flex items-center justify-between px-4 shrink-0 shadow-md z-10">
-                  <div className="flex items-center gap-2"><img src="https://i.ibb.co.com/fGYvBbLs/white-goti.png" alt="Logo" className="h-6 object-contain" /><span className="font-bold text-blue-100">{t(currentView)}</span></div>
-                  <div className="bg-slate-800 p-1 rounded-lg flex border border-slate-700">
-                      <button onClick={() => setLang('bn')} className={`px-2 py-0.5 rounded text-[10px] font-bold ${lang === 'bn' ? 'bg-blue-600 text-white' : 'text-slate-400'}`}>BN</button>
-                      <button onClick={() => setLang('en')} className={`px-2 py-0.5 rounded text-[10px] font-bold ${lang === 'en' ? 'bg-blue-600 text-white' : 'text-slate-400'}`}>EN</button>
-                  </div>
+                  <div className="flex items-center gap-2"><img src="https://i.ibb.co.com/fGYvBbLs/white-goti.png" alt="Logo" className="h-6 object-contain" /><span className="font-bold text-blue-100 capitalize">{currentView}</span></div>
                 </header>
 
                 <main className="flex-1 overflow-x-hidden overflow-y-auto bg-[#e2e8f0] p-4 pb-24 md:pb-6 sm:p-6 lg:p-8">
                   <div className="max-w-7xl mx-auto">
-                    {currentView === 'dashboard' && <DashboardView user={currentUser} t={t} lang={lang} updateUser={updateUserProfile} />}
-                    {currentView === 'attendance' && <AttendanceView user={currentUser} attendances={attendances} addAttendance={addAttendance} users={users} t={t} lang={lang} />}
-                    {currentView === 'leave' && <LeaveView user={currentUser} leaves={leaves} addLeave={addLeave} updateLeave={updateLeave} deleteLeave={deleteLeave} t={t} lang={lang} />}
-                    {currentView === 'expenses' && <ExpenseView user={currentUser} expenses={expenses} addExpense={addExpense} updateExpense={updateExpense} deleteExpense={deleteExpense} t={t} lang={lang} />}
-                    {currentView === 'reports' && <ReportView user={currentUser} reports={reports} addReport={addReport} deleteReport={deleteReport} t={t} />}
-                    {currentView === 'employees' && currentUser.role === 'admin' && <EmployeesView users={users} addUser={addUser} updateUser={updateUser} deleteUser={deleteUser} t={t} lang={lang} />}
-                    {currentView === 'payments' && currentUser.role === 'admin' && <PaymentsView users={users} updateUser={updateUser} payments={payments} addPayment={addPayment} expenses={expenses} t={t} lang={lang} />}
+                    {currentView === 'dashboard' && <DashboardView user={currentUser} updateUser={updateUserProfile} />}
+                    {currentView === 'attendance' && <AttendanceView user={currentUser} attendances={attendances} addAttendance={addAttendance} users={users} />}
+                    {currentView === 'leave' && <LeaveView user={currentUser} leaves={leaves} addLeave={addLeave} updateLeave={updateLeave} deleteLeave={deleteLeave} />}
+                    {currentView === 'expenses' && <ExpenseView user={currentUser} expenses={expenses} addExpense={addExpense} updateExpense={updateExpense} deleteExpense={deleteExpense} />}
+                    {currentView === 'reports' && <ReportView user={currentUser} reports={reports} addReport={addReport} deleteReport={deleteReport} />}
+                    {currentView === 'salary' && <SalaryView user={currentUser} users={users} salaries={salaries} addSalary={addSalary} updateSalary={updateSalary} deleteSalary={deleteSalary} />}
+                    {currentView === 'employees' && currentUser.role === 'admin' && <EmployeesView users={users} addUser={addUser} updateUser={updateUser} deleteUser={deleteUser} />}
+                    {currentView === 'payments' && currentUser.role === 'admin' && <PaymentsView users={users} payments={payments} addPayment={addPayment} expenses={expenses} />}
                   </div>
                 </main>
 
                 <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 pb-safe pt-1 flex justify-around items-center h-[68px] z-30 shadow-[0_-10px_20px_rgba(0,0,0,0.05)] rounded-t-2xl">
-                  <BottomNavItem icon="fa-house" label={t('home')} active={currentView === 'dashboard'} onClick={() => setCurrentView('dashboard')} />
-                  <BottomNavItem icon="fa-user-check" label={t('attendance')} active={currentView === 'attendance'} onClick={() => setCurrentView('attendance')} />
+                  <BottomNavItem icon="fa-house" label="ড্যাশবোর্ড" active={currentView === 'dashboard'} onClick={() => setCurrentView('dashboard')} />
+                  <BottomNavItem icon="fa-user-check" label="উপস্থিতি" active={currentView === 'attendance'} onClick={() => setCurrentView('attendance')} />
                   <div className="relative -top-5">
                     <button onClick={() => setCurrentView(currentUser.role === 'admin' ? 'reports' : 'expenses')} className="w-14 h-14 bg-blue-600 rounded-full flex flex-col items-center justify-center text-white shadow-lg shadow-blue-500/40 border-4 border-[#e2e8f0] active:scale-95 transition-transform"><i className={`fa-solid ${currentUser.role === 'admin' ? 'fa-file-lines' : 'fa-money-bill-wave'} text-xl`}></i></button>
                   </div>
-                  <BottomNavItem icon={currentUser.role === 'admin' ? 'fa-wallet' : 'fa-file-lines'} label={currentUser.role === 'admin' ? t('payments') : t('reports')} active={currentView === (currentUser.role === 'admin' ? 'payments' : 'reports')} onClick={() => setCurrentView(currentUser.role === 'admin' ? 'payments' : 'reports')} />
-                  <BottomNavItem icon="fa-bars" label={t('menu')} active={sidebarOpen} onClick={() => setSidebarOpen(true)} />
+                  <BottomNavItem icon="fa-sack-dollar" label="বেতন" active={currentView === 'salary'} onClick={() => setCurrentView('salary')} />
+                  <BottomNavItem icon="fa-bars" label="মেনু" active={sidebarOpen} onClick={() => setSidebarOpen(true)} />
                 </nav>
               </div>
             </div>
           );
         }
 
-        // ==========================================
-        // 🔵 Views Components
-        // ==========================================
         function BottomNavItem({ icon, label, active, onClick }) {
           return (
             <button onClick={onClick} className={`flex flex-col items-center justify-center w-16 h-full transition-colors ${active ? 'text-blue-600' : 'text-slate-400'}`}>
@@ -325,7 +282,7 @@
           );
         }
 
-        function DashboardView({ user, t, lang, updateUser }) {
+        function DashboardView({ user, updateUser }) {
           const handleAvatarUpload = (e) => {
             const file = e.target.files[0];
             if (file) {
@@ -349,57 +306,56 @@
                 </div>
                 <div className="p-4 md:p-5 flex-1 bg-slate-50/50">
                   <div className="grid grid-cols-2 gap-3 text-sm">
-                    <div className="flex flex-col text-slate-700 bg-white p-3 md:p-4 rounded-xl border border-slate-100 shadow-sm items-center text-center"><i className="fa-solid fa-briefcase text-blue-500 mb-2 text-lg"></i><p className="text-[10px] text-slate-400 font-bold uppercase mb-0.5">{t('designation')}</p><p className="font-bold text-xs md:text-sm">{user.designation}</p></div>
-                    <div className="flex flex-col text-slate-700 bg-white p-3 md:p-4 rounded-xl border border-slate-100 shadow-sm items-center text-center"><i className="fa-solid fa-shield-halved text-blue-500 mb-2 text-lg"></i><p className="text-[10px] text-slate-400 font-bold uppercase mb-0.5">{t('role')}</p><p className="font-bold text-xs md:text-sm capitalize">{user.role}</p></div>
+                    <div className="flex flex-col text-slate-700 bg-white p-3 md:p-4 rounded-xl border border-slate-100 shadow-sm items-center text-center"><i className="fa-solid fa-briefcase text-blue-500 mb-2 text-lg"></i><p className="text-[10px] text-slate-400 font-bold uppercase mb-0.5">পদবী</p><p className="font-bold text-xs md:text-sm">{user.designation}</p></div>
+                    <div className="flex flex-col text-slate-700 bg-white p-3 md:p-4 rounded-xl border border-slate-100 shadow-sm items-center text-center"><i className="fa-solid fa-shield-halved text-blue-500 mb-2 text-lg"></i><p className="text-[10px] text-slate-400 font-bold uppercase mb-0.5">রোল</p><p className="font-bold text-xs md:text-sm capitalize">{user.role === 'admin' ? 'এডমিন' : 'কর্মচারী'}</p></div>
                   </div>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-white rounded-2xl border border-slate-200 shadow-sm flex flex-col overflow-hidden"><div className="bg-blue-600 text-white p-3 text-center font-bold text-lg md:text-xl"><RealTimeClock lang={lang} /></div><div className="flex-1 flex items-center justify-center p-6 bg-slate-50"><AnalogClock /></div></div>
-                <div className="bg-[#1e293b] text-white rounded-2xl shadow-lg p-5 md:p-6 border border-slate-700"><BanglaCalendar lang={lang} /></div>
+                <div className="bg-white rounded-2xl border border-slate-200 shadow-sm flex flex-col overflow-hidden"><div className="bg-blue-600 text-white p-3 text-center font-bold text-lg md:text-xl"><RealTimeClock /></div><div className="flex-1 flex items-center justify-center p-6 bg-slate-50"><AnalogClock /></div></div>
+                <div className="bg-[#1e293b] text-white rounded-2xl shadow-lg p-5 md:p-6 border border-slate-700 overflow-hidden"><BanglaCalendar /></div>
               </div>
             </div>
           );
         }
 
-        // --- Attendance View with Live Location & Multiple Entries ---
-        function AttendanceView({ user, attendances, addAttendance, users, t, lang }) {
+        function AttendanceView({ user, attendances, addAttendance, users }) {
           const videoRef = useRef(null);
           const canvasRef = useRef(null);
           const [cameraActive, setCameraActive] = useState(false);
-          const [locStatus, setLocStatus] = useState('loading'); // loading, success, error
+          const [cameraError, setCameraError] = useState('');
           const [userLoc, setUserLoc] = useState(null);
+          const [locError, setLocError] = useState(false); // New state for location warning
 
-          const locale = lang === 'bn' ? 'bn-BD' : 'en-US';
+          const locale = 'bn-BD';
           const currentDateFormatted = new Intl.DateTimeFormat(locale, { timeZone: 'Asia/Dhaka', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
 
           useEffect(() => {
             if (user.role === 'employee') {
                startCamera();
-               if(navigator.geolocation) {
-                  navigator.geolocation.getCurrentPosition(
-                    pos => {
-                        setUserLoc(`${pos.coords.latitude},${pos.coords.longitude}`);
-                        setLocStatus('success');
-                    },
-                    err => {
-                        console.log('Loc err:', err);
-                        setLocStatus('error');
-                    }, {enableHighAccuracy: true, timeout: 10000}
-                  );
-               } else {
-                   setLocStatus('error');
-               }
+               getLocation();
             }
             return () => stopCamera();
           }, [user.role]);
 
+          const getLocation = () => {
+             setLocError(false);
+             if(navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                  pos => { setUserLoc(`${pos.coords.latitude},${pos.coords.longitude}`); setLocError(false); },
+                  err => { console.log('Loc err:', err); setLocError(true); }, {enableHighAccuracy: true}
+                );
+             } else {
+                setLocError(true);
+             }
+          }
+
           const startCamera = async () => {
             try {
               const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: false });
-              if (videoRef.current) { videoRef.current.srcObject = stream; setCameraActive(true); }
-            } catch (err) { setLocStatus('error'); }
+              if (videoRef.current) { videoRef.current.srcObject = stream; setCameraActive(true); setCameraError(''); }
+            } catch (err) { setCameraError('ক্যামেরা চালু করা সম্ভব হয়নি।'); }
           };
 
           const stopCamera = () => {
@@ -407,21 +363,24 @@
           };
 
           const captureAndSubmit = () => {
-            if (!videoRef.current || !cameraActive || locStatus !== 'success') return;
+            if (!videoRef.current || !cameraActive || !userLoc) {
+               if(!userLoc) setLocError(true);
+               return;
+            }
             const video = videoRef.current; const canvas = canvasRef.current; const context = canvas.getContext('2d');
             canvas.width = video.videoWidth; canvas.height = video.videoHeight;
             context.drawImage(video, 0, 0, canvas.width, canvas.height);
             
             const photoDataUrl = canvas.toDataURL('image/jpeg', 0.3);
             const currentTime = new Intl.DateTimeFormat(locale, { timeZone: 'Asia/Dhaka', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true }).format(new Date());
-            const locLink = userLoc ? `https://maps.google.com/?q=${userLoc}` : null;
+            const locLink = `https://maps.google.com/?q=${userLoc}`;
 
             addAttendance({ id: Date.now(), userId: user.id, userName: user.name, date: currentDateFormatted, time: currentTime, photo: photoDataUrl, location: locLink });
             
             const btn = document.getElementById('submit-att-btn');
             if(btn) {
               const originalText = btn.innerHTML;
-              btn.innerHTML = `<i class="fa-solid fa-check mr-2"></i> ${lang === 'bn' ? 'সফল হয়েছে!' : 'Success!'}`;
+              btn.innerHTML = `<i class="fa-solid fa-check mr-2"></i> সফল হয়েছে!`;
               btn.classList.add('!bg-green-600');
               setTimeout(() => { btn.innerHTML = originalText; btn.classList.remove('!bg-green-600'); }, 2000);
             }
@@ -433,7 +392,7 @@
           return (
             <div className="bg-white md:p-8 p-5 rounded-2xl border border-slate-200 shadow-sm">
               <h2 className="text-xl md:text-2xl font-bold text-slate-800 mb-6 border-b border-slate-100 pb-3 md:pb-4 flex items-center gap-2">
-                <i className="fa-solid fa-user-check text-blue-500"></i> {t('attendance')}
+                <i className="fa-solid fa-user-check text-blue-500"></i> উপস্থিতি
               </h2>
               
               {user.role === 'employee' && (
@@ -442,20 +401,30 @@
                     <div className="w-full md:w-1/2 max-w-[280px] mx-auto md:mx-0">
                       <div className="relative rounded-2xl overflow-hidden border-4 border-slate-800 bg-black aspect-[3/4] flex items-center justify-center shadow-xl">
                         <video ref={videoRef} autoPlay playsInline muted className={`w-full h-full object-cover ${cameraActive ? 'block' : 'hidden'}`} style={{ transform: 'scaleX(-1)' }} />
-                        {!cameraActive && <div className="text-slate-500 flex flex-col items-center text-center p-6"><i className="fa-solid fa-video-slash text-5xl mb-3 opacity-40"></i><p className="text-xs md:text-sm font-medium">{t('liveCamera')}</p></div>}
+                        {!cameraActive && <div className="text-slate-500 flex flex-col items-center text-center p-6"><i className="fa-solid fa-video-slash text-5xl mb-3 opacity-40"></i><p className="text-xs md:text-sm font-medium">{cameraError || 'লাইভ ক্যামেরা (সেলফি)'}</p>{cameraError && <button onClick={startCamera} className="mt-4 px-5 py-2 bg-blue-600 text-white rounded-xl text-sm font-bold shadow-md">Retry</button>}</div>}
                       </div>
                       <canvas ref={canvasRef} className="hidden"></canvas>
                     </div>
 
                     <div className="flex-1 space-y-4 md:space-y-6 w-full text-center md:text-left">
                       <div className="hidden md:block">
-                        <h3 className="text-xl font-bold text-slate-800 mb-2">{t('liveCamera')}</h3>
-                        <p className="text-slate-600 bg-blue-50 p-4 rounded-xl border border-blue-100">{lang === 'bn' ? 'ক্যামেরার দিকে তাকিয়ে সাবমিট বাটনে ক্লিক করুন। আপনার বর্তমান ছবি, তারিখ, সময় ও লোকেশন সেভ হবে।' : 'Look at camera to submit. Photo, time and location will be recorded.'}</p>
+                        <h3 className="text-xl font-bold text-slate-800 mb-2">লাইভ ক্যামেরা (সেলফি)</h3>
+                        <p className="text-slate-600 bg-blue-50 p-4 rounded-xl border border-blue-100">ক্যামেরার দিকে তাকিয়ে সাবমিট বাটনে ক্লিক করুন। আপনার বর্তমান ছবি, তারিখ, সময় ও লোকেশন সেভ হবে।</p>
                       </div>
-                      <button id="submit-att-btn" onClick={captureAndSubmit} disabled={!cameraActive || locStatus !== 'success'} className={`w-full py-4 rounded-2xl text-base md:text-lg font-bold flex items-center justify-center transition-all shadow-lg ${(cameraActive && locStatus === 'success') ? 'bg-blue-600 text-white hover:bg-blue-700 active:scale-95' : 'bg-slate-200 text-slate-400 cursor-not-allowed opacity-70'}`}><i className="fa-solid fa-camera mr-2 text-xl"></i> {t('submitAttendance')}</button>
                       
-                      {locStatus === 'success' && userLoc && <div className="text-xs text-green-600 font-bold flex items-center justify-center md:justify-start mt-2"><i className="fa-solid fa-location-dot mr-1"></i> Location captured</div>}
-                      {locStatus === 'error' && <div className="text-xs text-red-600 bg-red-50 p-3 rounded-xl border border-red-200 font-bold flex items-center justify-center md:justify-start mt-3"><i className="fa-solid fa-triangle-exclamation mr-2 text-lg"></i> {t('locWarning')}</div>}
+                      {locError && (
+                         <div className="bg-red-50 border border-red-200 p-3 rounded-xl flex items-start gap-2 text-left">
+                            <i className="fa-solid fa-triangle-exclamation text-red-500 mt-1"></i>
+                            <div>
+                               <p className="text-sm font-bold text-red-600">লোকেশন (GPS) বন্ধ আছে!</p>
+                               <p className="text-xs text-red-500">অবশ্যই লোকেশন অন করতে হবে, তা না হলে উপস্থিতি দেওয়া যাবে না। লোকেশন অন করে রিফ্রেশ দিন।</p>
+                               <button onClick={getLocation} className="mt-2 bg-red-100 text-red-600 px-3 py-1 rounded text-xs font-bold hover:bg-red-200">চেক লোকেশন</button>
+                            </div>
+                         </div>
+                      )}
+
+                      <button id="submit-att-btn" onClick={captureAndSubmit} disabled={!cameraActive || !userLoc} className={`w-full py-4 rounded-2xl text-base md:text-lg font-bold flex items-center justify-center transition-all shadow-lg ${cameraActive && userLoc ? 'bg-blue-600 text-white hover:bg-blue-700 active:scale-95' : 'bg-slate-200 text-slate-400 cursor-not-allowed'}`}><i className="fa-solid fa-camera mr-2 text-xl"></i> উপস্থিতি সাবমিট করুন</button>
+                      {userLoc && <div className="text-xs text-green-600 font-bold flex items-center justify-center md:justify-start mt-2"><i className="fa-solid fa-location-dot mr-1"></i> লোকেশন ট্র্যাক করা হয়েছে</div>}
                     </div>
                   </div>
                 </div>
@@ -463,10 +432,10 @@
 
               {user.role === 'admin' && (
                 <div className="mb-8">
-                  <h3 className="text-lg font-bold text-slate-800 mb-4 bg-slate-100 p-3 rounded-lg border border-slate-200"><i className="fa-solid fa-clipboard-user mr-2 text-blue-600"></i> {t('todaysStatus')} - <span className="text-blue-600">{currentDateFormatted}</span></h3>
+                  <h3 className="text-lg font-bold text-slate-800 mb-4 bg-slate-100 p-3 rounded-lg border border-slate-200"><i className="fa-solid fa-clipboard-user mr-2 text-blue-600"></i> আজকের উপস্থিতি - <span className="text-blue-600">{currentDateFormatted}</span></h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {allEmployees.map(emp => {
-                      const records = attendances.filter(a => a.userId === emp.id && a.date === currentDateFormatted);
+                      const records = attendances.filter(a => a.userId === emp.id && a.date === currentDateFormatted).sort((a,b) => b.id - a.id);
                       const latestRecord = records[0];
                       return (
                         <div key={emp.id} className={`p-4 rounded-2xl border shadow-sm flex items-center gap-4 ${records.length > 0 ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'}`}>
@@ -474,10 +443,10 @@
                           <div className="flex-1">
                             <h4 className="font-bold text-slate-800 text-sm leading-tight mb-1">{emp.name}</h4>
                             {records.length > 0 ? (
-                              <div className="flex flex-col gap-1">
-                                {records.map(r => <span key={r.id} className="bg-green-200 text-green-800 px-2 py-0.5 rounded text-[10px] font-bold w-max"><i className="fa-solid fa-check mr-1"></i> {r.time}</span>)}
+                              <div className="flex flex-wrap gap-1">
+                                {records.map(r => <span key={r.id} className="bg-green-200 text-green-800 px-2 py-0.5 rounded text-[10px] font-bold"><i className="fa-solid fa-check mr-0.5"></i>{r.time}</span>)}
                               </div>
-                            ) : (<span className="bg-red-200 text-red-800 px-2 py-0.5 rounded text-[10px] font-bold"><i className="fa-solid fa-xmark mr-1"></i> {t('absent')}</span>)}
+                            ) : (<span className="bg-red-200 text-red-800 px-2 py-0.5 rounded text-[10px] font-bold"><i className="fa-solid fa-xmark mr-1"></i> অনুপস্থিত</span>)}
                           </div>
                         </div>
                       );
@@ -487,20 +456,20 @@
               )}
 
               <div>
-                <h3 className="text-lg font-bold text-slate-800 mb-4">{t('allHistory')}</h3>
+                <h3 className="text-lg font-bold text-slate-800 mb-4">{user.role === 'admin' ? 'সকল উপস্থিতির ইতিহাস' : 'উপস্থিতির ইতিহাস'}</h3>
                 <div className="hidden md:block overflow-x-auto rounded-xl border border-slate-200">
                   <table className="w-full text-left border-collapse">
-                    <thead><tr className="bg-slate-50 text-slate-500 uppercase text-xs tracking-wider border-b border-slate-200"><th className="p-4 font-bold">{t('photo')}</th><th className="p-4 font-bold">{t('name')}</th><th className="p-4 font-bold">{t('date')}</th><th className="p-4 font-bold">{t('time')}</th><th className="p-4 font-bold">{t('location')}</th></tr></thead>
+                    <thead><tr className="bg-slate-50 text-slate-500 uppercase text-xs tracking-wider border-b border-slate-200"><th className="p-4 font-bold">ছবি</th><th className="p-4 font-bold">নাম</th><th className="p-4 font-bold">তারিখ</th><th className="p-4 font-bold">সময়</th><th className="p-4 font-bold">লোকেশন</th></tr></thead>
                     <tbody className="divide-y divide-slate-100">
-                      {myAttendances.length === 0 ? <tr><td colSpan="5" className="p-8 text-center text-slate-400 font-medium">{t('noRecord')}</td></tr> : 
+                      {myAttendances.length === 0 ? <tr><td colSpan="5" className="p-8 text-center text-slate-400 font-medium">কোনো রেকর্ড পাওয়া যায়নি</td></tr> : 
                         myAttendances.map(record => (
-                          <tr key={record.id} className="hover:bg-slate-50 transition"><td className="p-4"><img src={record.photo} alt="Selfie" className="w-12 h-12 rounded-xl object-cover border border-slate-200" style={{ transform: 'scaleX(-1)' }} /></td><td className="p-4 font-bold text-slate-800">{record.userName}</td><td className="p-4 text-slate-600 font-medium">{record.date}</td><td className="p-4"><span className="inline-block bg-green-50 text-green-700 px-3 py-1 rounded-lg text-xs font-bold border border-green-200">{record.time}</span></td><td className="p-4">{record.location ? <a href={record.location} target="_blank" className="text-blue-500 hover:text-blue-700 text-xs font-bold bg-blue-50 px-2 py-1 rounded"><i className="fa-solid fa-map-location-dot mr-1"></i> {t('mapLink')}</a> : <span className="text-slate-400 text-xs">N/A</span>}</td></tr>
+                          <tr key={record.id} className="hover:bg-slate-50 transition"><td className="p-4"><img src={record.photo} alt="Selfie" className="w-12 h-12 rounded-xl object-cover border border-slate-200" style={{ transform: 'scaleX(-1)' }} /></td><td className="p-4 font-bold text-slate-800">{record.userName}</td><td className="p-4 text-slate-600 font-medium">{record.date}</td><td className="p-4"><span className="inline-block bg-green-50 text-green-700 px-3 py-1 rounded-lg text-xs font-bold border border-green-200">{record.time}</span></td><td className="p-4">{record.location ? <a href={record.location} target="_blank" className="text-blue-500 hover:text-blue-700 text-xs font-bold bg-blue-50 px-2 py-1 rounded"><i className="fa-solid fa-map-location-dot mr-1"></i> ম্যাপে দেখুন</a> : <span className="text-slate-400 text-xs">N/A</span>}</td></tr>
                         ))}
                     </tbody>
                   </table>
                 </div>
                 <div className="md:hidden grid grid-cols-1 gap-3">
-                   {myAttendances.length === 0 ? <div className="p-6 text-center text-slate-400 bg-slate-50 rounded-xl border border-dashed border-slate-200">{t('noRecord')}</div> :
+                   {myAttendances.length === 0 ? <div className="p-6 text-center text-slate-400 bg-slate-50 rounded-xl border border-dashed border-slate-200">কোনো রেকর্ড পাওয়া যায়নি</div> :
                      myAttendances.map(record => (
                        <div key={record.id} className="bg-white p-3 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
                           <img src={record.photo} alt="Selfie" className="w-16 h-16 rounded-xl object-cover border border-slate-100 shadow-sm" style={{ transform: 'scaleX(-1)' }} />
@@ -509,7 +478,7 @@
                              <div className="flex flex-wrap items-center gap-2 text-[10px]">
                                <span className="text-slate-500"><i className="fa-regular fa-calendar mr-1"></i>{record.date}</span>
                                <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded font-bold">{record.time}</span>
-                               {record.location && <a href={record.location} target="_blank" className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded font-bold"><i className="fa-solid fa-map-location-dot"></i> Map</a>}
+                               {record.location && <a href={record.location} target="_blank" className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded font-bold"><i className="fa-solid fa-map-location-dot"></i> ম্যাপ</a>}
                              </div>
                           </div>
                        </div>
@@ -520,35 +489,34 @@
           );
         }
 
-        // --- Leave View ---
-        function LeaveView({ user, leaves, addLeave, updateLeave, deleteLeave, t, lang }) {
+        function LeaveView({ user, leaves, addLeave, updateLeave, deleteLeave }) {
           const [startDate, setStartDate] = useState(''); const [endDate, setEndDate] = useState(''); const [reason, setReason] = useState('');
-          const submitLeave = (e) => { e.preventDefault(); addLeave({ id: Date.now(), userId: user.id, userName: user.name, startDate, endDate, reason, requestDate: new Date().toLocaleDateString('en-CA'), status: t('pending') }); setStartDate(''); setEndDate(''); setReason(''); };
+          const submitLeave = (e) => { e.preventDefault(); addLeave({ id: Date.now(), userId: user.id, userName: user.name, startDate, endDate, reason, requestDate: new Date().toLocaleDateString('bn-BD'), status: 'অপেক্ষমান' }); setStartDate(''); setEndDate(''); setReason(''); };
           const displayLeaves = user.role === 'admin' ? leaves : leaves.filter(l => l.userId === user.id);
           return (
             <div className="bg-white p-5 md:p-8 rounded-2xl border border-slate-200 shadow-sm">
-              <h2 className="text-xl md:text-2xl font-bold text-slate-800 mb-6 border-b border-slate-100 pb-3 md:pb-4 flex items-center gap-2"><i className="fa-solid fa-calendar-day text-blue-500"></i> {t('leave')}</h2>
+              <h2 className="text-xl md:text-2xl font-bold text-slate-800 mb-6 border-b border-slate-100 pb-3 md:pb-4 flex items-center gap-2"><i className="fa-solid fa-calendar-day text-blue-500"></i> ছুটি</h2>
               {user.role === 'employee' && (
                 <form onSubmit={submitLeave} className="mb-8 bg-blue-50/50 p-5 md:p-6 rounded-2xl border border-blue-100 grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div><label className="block text-xs md:text-sm font-bold text-slate-700 mb-2">{t('startDate')}</label><input type="date" value={startDate} onChange={e => setStartDate(e.target.value)} className="w-full px-4 py-3 bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" required /></div>
-                  <div><label className="block text-xs md:text-sm font-bold text-slate-700 mb-2">{t('endDate')}</label><input type="date" value={endDate} onChange={e => setEndDate(e.target.value)} className="w-full px-4 py-3 bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" required /></div>
-                  <div className="md:col-span-2"><label className="block text-xs md:text-sm font-bold text-slate-700 mb-2">{t('reason')}</label><textarea value={reason} onChange={e => setReason(e.target.value)} className="w-full px-4 py-3 bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none h-24 resize-none" required placeholder="ছুটির বিস্তারিত কারণ লিখুন..."></textarea></div>
-                  <div className="md:col-span-2 mt-2"><button type="submit" className="w-full md:w-auto bg-blue-600 text-white px-8 py-3.5 rounded-xl hover:bg-blue-700 font-bold shadow-lg active:scale-95 transition-all"><i className="fa-solid fa-paper-plane mr-2"></i> {t('applyLeave')}</button></div>
+                  <div><label className="block text-xs md:text-sm font-bold text-slate-700 mb-2">শুরুর তারিখ</label><input type="date" value={startDate} onChange={e => setStartDate(e.target.value)} className="w-full px-4 py-3 bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" required /></div>
+                  <div><label className="block text-xs md:text-sm font-bold text-slate-700 mb-2">শেষ তারিখ</label><input type="date" value={endDate} onChange={e => setEndDate(e.target.value)} className="w-full px-4 py-3 bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" required /></div>
+                  <div className="md:col-span-2"><label className="block text-xs md:text-sm font-bold text-slate-700 mb-2">ছুটির কারণ</label><textarea value={reason} onChange={e => setReason(e.target.value)} className="w-full px-4 py-3 bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none h-24 resize-none" required placeholder="ছুটির বিস্তারিত কারণ লিখুন..."></textarea></div>
+                  <div className="md:col-span-2 mt-2"><button type="submit" className="w-full md:w-auto bg-blue-600 text-white px-8 py-3.5 rounded-xl hover:bg-blue-700 font-bold shadow-lg active:scale-95 transition-all"><i className="fa-solid fa-paper-plane mr-2"></i> ছুটির আবেদন</button></div>
                 </form>
               )}
               <div className="space-y-4">
-                {displayLeaves.length === 0 ? <div className="p-8 text-center text-slate-400 bg-slate-50 rounded-xl border border-dashed border-slate-200">{t('noRecord')}</div> :
+                {displayLeaves.length === 0 ? <div className="p-8 text-center text-slate-400 bg-slate-50 rounded-xl border border-dashed border-slate-200">কোনো রেকর্ড পাওয়া যায়নি</div> :
                   displayLeaves.map(leave => (
                     <div key={leave.id} className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm relative">
-                      <div className="flex justify-between items-start mb-2"><span className="text-xs font-bold text-slate-400 bg-slate-100 px-2 py-1 rounded-md"><i className="fa-regular fa-calendar mr-1"></i> Requested: {leave.requestDate}</span><span className={`px-2 py-0.5 text-[10px] rounded-md font-bold uppercase tracking-wider border ${leave.status === t('approved') ? 'bg-green-50 text-green-700 border-green-200' : leave.status === t('reject') ? 'bg-red-50 text-red-700 border-red-200' : 'bg-orange-50 text-orange-700 border-orange-200'}`}>{leave.status}</span></div>
+                      <div className="flex justify-between items-start mb-2"><span className="text-xs font-bold text-slate-400 bg-slate-100 px-2 py-1 rounded-md"><i className="fa-regular fa-calendar mr-1"></i> Requested: {leave.requestDate}</span><span className={`px-2 py-0.5 text-[10px] rounded-md font-bold uppercase tracking-wider border ${leave.status === 'অনুমোদিত' ? 'bg-green-50 text-green-700 border-green-200' : leave.status === 'বাতিল' ? 'bg-red-50 text-red-700 border-red-200' : 'bg-orange-50 text-orange-700 border-orange-200'}`}>{leave.status}</span></div>
                       {user.role === 'admin' && <div className="text-sm font-bold text-blue-600 mb-2">{leave.userName}</div>}
                       <div className="text-sm text-slate-800 font-bold mb-1">Date: {leave.startDate} to {leave.endDate}</div>
                       <div className="text-sm text-slate-600 mb-4 bg-slate-50 p-3 rounded-lg border border-slate-100">{leave.reason}</div>
                       <div className="flex gap-2">
-                          {user.role === 'admin' && leave.status === t('pending') && (
+                          {user.role === 'admin' && leave.status === 'অপেক্ষমান' && (
                             <>
-                              <button onClick={() => updateLeave(leave.id, { status: t('approved') })} className="flex-1 bg-green-50 text-green-600 hover:bg-green-600 hover:text-white py-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1"><i className="fa-solid fa-check"></i> Approve</button>
-                              <button onClick={() => updateLeave(leave.id, { status: t('reject') })} className="flex-1 bg-red-50 text-red-600 hover:bg-red-600 hover:text-white py-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1"><i className="fa-solid fa-xmark"></i> Reject</button>
+                              <button onClick={() => updateLeave(leave.id, { status: 'অনুমোদিত' })} className="flex-1 bg-green-50 text-green-600 hover:bg-green-600 hover:text-white py-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1"><i className="fa-solid fa-check"></i> Approve</button>
+                              <button onClick={() => updateLeave(leave.id, { status: 'বাতিল' })} className="flex-1 bg-red-50 text-red-600 hover:bg-red-600 hover:text-white py-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1"><i className="fa-solid fa-xmark"></i> Reject</button>
                             </>
                           )}
                           <button onClick={() => {if(window.confirm('Delete?')) deleteLeave(leave.id)}} className="flex-1 max-w-[100px] bg-slate-100 text-slate-500 hover:bg-red-500 hover:text-white py-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1"><i className="fa-solid fa-trash-can"></i></button>
@@ -561,70 +529,69 @@
           );
         }
 
-        // --- Expense View with Status & Rejection Notes ---
-        function ExpenseView({ user, expenses, addExpense, updateExpense, deleteExpense, t, lang }) {
+        function ExpenseView({ user, expenses, addExpense, updateExpense, deleteExpense }) {
           const [amount, setAmount] = useState(''); const [desc, setDesc] = useState(''); const [category, setCategory] = useState('travel');
 
           const submitExpense = (e) => {
             e.preventDefault();
-            addExpense({ id: Date.now(), userId: user.id, userName: user.name, category: category, amount: parseFloat(amount), description: desc, date: new Date().toLocaleDateString('en-CA'), status: t('pending'), rejectReason: '' });
+            addExpense({ id: Date.now(), userId: user.id, userName: user.name, category: category, amount: parseFloat(amount), description: desc, date: new Date().toLocaleDateString('bn-BD'), status: 'অপেক্ষমান', rejectReason: '' });
             setAmount(''); setDesc(''); setCategory('travel');
           };
 
           const handleReject = (id) => {
-             const reason = window.prompt(lang === 'bn' ? 'বাতিল করার কারণ লিখুন:' : 'Reason for rejection:');
-             if(reason !== null) { updateExpense(id, { status: t('reject'), rejectReason: reason }); }
+             const reason = window.prompt('বাতিল করার কারণ লিখুন:');
+             if(reason !== null) { updateExpense(id, { status: 'বাতিল', rejectReason: reason }); }
           };
 
           const displayExpenses = user.role === 'admin' ? expenses : expenses.filter(e => e.userId === user.id);
           
-          const myPending = displayExpenses.filter(e => e.status === t('pending')).reduce((sum, e) => sum + e.amount, 0);
-          const myApproved = displayExpenses.filter(e => e.status === t('approved')).reduce((sum, e) => sum + e.amount, 0);
-          const myPaid = displayExpenses.filter(e => e.status === t('paid')).reduce((sum, e) => sum + e.amount, 0);
+          const myPending = displayExpenses.filter(e => e.status === 'অপেক্ষমান').reduce((sum, e) => sum + e.amount, 0);
+          const myApproved = displayExpenses.filter(e => e.status === 'অনুমোদিত').reduce((sum, e) => sum + e.amount, 0);
+          const myPaid = displayExpenses.filter(e => e.status === 'পেইড').reduce((sum, e) => sum + e.amount, 0);
 
           return (
             <div className="bg-white p-5 md:p-8 rounded-2xl border border-slate-200 shadow-sm">
               <h2 className="text-xl md:text-2xl font-bold text-slate-800 mb-6 border-b border-slate-100 pb-3 md:pb-4 flex items-center gap-2">
-                <i className="fa-solid fa-money-bill-wave text-blue-500"></i> {t('expenses')}
+                <i className="fa-solid fa-money-bill-wave text-blue-500"></i> যাতায়াত ও অন্যান্য বিল
               </h2>
 
               <div className="grid grid-cols-3 gap-2 md:gap-4 mb-6">
-                 <div className="bg-orange-50 border border-orange-100 p-3 md:p-4 rounded-xl text-center"><p className="text-[10px] md:text-xs text-orange-600 font-bold uppercase">{t('pending')}</p><p className="text-lg md:text-2xl font-black text-orange-700">৳{myPending}</p></div>
-                 <div className="bg-blue-50 border border-blue-100 p-3 md:p-4 rounded-xl text-center"><p className="text-[10px] md:text-xs text-blue-600 font-bold uppercase">{t('approved')}</p><p className="text-lg md:text-2xl font-black text-blue-700">৳{myApproved}</p></div>
-                 <div className="bg-green-50 border border-green-100 p-3 md:p-4 rounded-xl text-center"><p className="text-[10px] md:text-xs text-green-600 font-bold uppercase">{t('paid')}</p><p className="text-lg md:text-2xl font-black text-green-700">৳{myPaid}</p></div>
+                 <div className="bg-orange-50 border border-orange-100 p-3 md:p-4 rounded-xl text-center"><p className="text-[10px] md:text-xs text-orange-600 font-bold uppercase">অপেক্ষমান</p><p className="text-lg md:text-2xl font-black text-orange-700">৳{myPending}</p></div>
+                 <div className="bg-blue-50 border border-blue-100 p-3 md:p-4 rounded-xl text-center"><p className="text-[10px] md:text-xs text-blue-600 font-bold uppercase">অনুমোদিত</p><p className="text-lg md:text-2xl font-black text-blue-700">৳{myApproved}</p></div>
+                 <div className="bg-green-50 border border-green-100 p-3 md:p-4 rounded-xl text-center"><p className="text-[10px] md:text-xs text-green-600 font-bold uppercase">পেইড</p><p className="text-lg md:text-2xl font-black text-green-700">৳{myPaid}</p></div>
               </div>
               
               {user.role === 'employee' && (
                 <form onSubmit={submitExpense} className="mb-8 bg-blue-50/50 p-5 md:p-6 rounded-2xl border border-blue-100 flex flex-col md:flex-row gap-4 md:items-end">
                   <div className="w-full md:w-1/4">
-                    <label className="block text-xs md:text-sm font-bold text-slate-700 mb-2">{t('category')}</label>
+                    <label className="block text-xs md:text-sm font-bold text-slate-700 mb-2">ধরন</label>
                     <select value={category} onChange={e=>setCategory(e.target.value)} className="w-full px-4 py-3 bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none">
-                      <option value="travel">{t('travelExp')}</option>
-                      <option value="other">{t('otherExp')}</option>
+                      <option value="travel">যাতায়াত</option>
+                      <option value="other">অন্যান্য বিল</option>
                     </select>
                   </div>
-                  <div className="w-full md:w-1/4"><label className="block text-xs md:text-sm font-bold text-slate-700 mb-2">{t('amount')}</label><div className="relative"><span className="absolute left-4 top-3.5 text-slate-400 font-bold">৳</span><input type="number" value={amount} onChange={e => setAmount(e.target.value)} className="w-full pl-8 pr-4 py-3 bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" required placeholder="0.00" /></div></div>
-                  <div className="w-full md:w-1/3"><label className="block text-xs md:text-sm font-bold text-slate-700 mb-2">{t('desc')}</label><input type="text" value={desc} onChange={e => setDesc(e.target.value)} className="w-full px-4 py-3 bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" required placeholder="বিবরণ..." /></div>
-                  <button type="submit" className="w-full md:w-auto bg-blue-600 text-white px-8 py-3.5 rounded-xl hover:bg-blue-700 font-bold whitespace-nowrap shadow-lg active:scale-95 transition-all"><i className="fa-solid fa-plus mr-2"></i>{t('addEntry')}</button>
+                  <div className="w-full md:w-1/4"><label className="block text-xs md:text-sm font-bold text-slate-700 mb-2">পরিমাণ (৳)</label><div className="relative"><span className="absolute left-4 top-3.5 text-slate-400 font-bold">৳</span><input type="number" value={amount} onChange={e => setAmount(e.target.value)} className="w-full pl-8 pr-4 py-3 bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" required placeholder="0.00" /></div></div>
+                  <div className="w-full md:w-1/3"><label className="block text-xs md:text-sm font-bold text-slate-700 mb-2">বিবরণ/স্থান</label><input type="text" value={desc} onChange={e => setDesc(e.target.value)} className="w-full px-4 py-3 bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" required placeholder="বিবরণ..." /></div>
+                  <button type="submit" className="w-full md:w-auto bg-blue-600 text-white px-8 py-3.5 rounded-xl hover:bg-blue-700 font-bold whitespace-nowrap shadow-lg active:scale-95 transition-all"><i className="fa-solid fa-plus mr-2"></i>এন্ট্রি করুন</button>
                 </form>
               )}
               
               <div className="hidden md:block overflow-x-auto rounded-xl border border-slate-200">
                 <table className="w-full text-left border-collapse">
-                  <thead><tr className="bg-slate-50 text-slate-500 uppercase text-xs tracking-wider border-b border-slate-200"><th className="p-4 font-bold">{t('date')}</th>{user.role === 'admin' && <th className="p-4 font-bold">{t('name')}</th>}<th className="p-4 font-bold">{t('category')}</th><th className="p-4 font-bold">{t('desc')}</th><th className="p-4 font-bold">{t('amount')}</th><th className="p-4 font-bold">{t('status')}</th><th className="p-4 font-bold">{t('action')}</th></tr></thead>
+                  <thead><tr className="bg-slate-50 text-slate-500 uppercase text-xs tracking-wider border-b border-slate-200"><th className="p-4 font-bold">তারিখ</th>{user.role === 'admin' && <th className="p-4 font-bold">নাম</th>}<th className="p-4 font-bold">ধরন</th><th className="p-4 font-bold">বিবরণ</th><th className="p-4 font-bold">পরিমাণ</th><th className="p-4 font-bold">স্ট্যাটাস</th><th className="p-4 font-bold">অ্যাকশন</th></tr></thead>
                   <tbody className="divide-y divide-slate-100">
-                    {displayExpenses.length === 0 ? <tr><td colSpan="7" className="p-8 text-center text-slate-400 font-medium">{t('noRecord')}</td></tr> : 
+                    {displayExpenses.length === 0 ? <tr><td colSpan="7" className="p-8 text-center text-slate-400 font-medium">কোনো রেকর্ড পাওয়া যায়নি</td></tr> : 
                       displayExpenses.map(exp => (
                         <tr key={exp.id} className="hover:bg-slate-50 transition">
                            <td className="p-4 text-slate-600 font-medium">{exp.date}</td>
                            {user.role === 'admin' && <td className="p-4 font-bold text-slate-800">{exp.userName}</td>}
-                           <td className="p-4"><span className={`px-2 py-1 text-[10px] font-bold rounded ${exp.category==='travel' ? 'bg-indigo-100 text-indigo-700' : 'bg-purple-100 text-purple-700'}`}>{exp.category==='travel' ? t('travelExp') : t('otherExp')}</span></td>
+                           <td className="p-4"><span className={`px-2 py-1 text-[10px] font-bold rounded ${exp.category==='travel' ? 'bg-indigo-100 text-indigo-700' : 'bg-purple-100 text-purple-700'}`}>{exp.category==='travel' ? 'যাতায়াত' : 'অন্যান্য বিল'}</span></td>
                            <td className="p-4 text-slate-700">{exp.description} {exp.rejectReason && <div className="text-[10px] text-red-500 font-bold mt-1 bg-red-50 inline-block px-1 rounded">Note: {exp.rejectReason}</div>}</td>
                            <td className="p-4 font-black text-blue-600 text-lg">৳{exp.amount}</td>
-                           <td className="p-4"><span className={`px-3 py-1 text-[10px] uppercase rounded-lg font-bold border ${exp.status === t('paid') ? 'bg-green-100 text-green-800 border-green-300' : exp.status === t('approved') ? 'bg-blue-50 text-blue-700 border-blue-200' : exp.status === t('reject') ? 'bg-red-50 text-red-700 border-red-200' : 'bg-orange-50 text-orange-700 border-orange-200'}`}>{exp.status}</span></td>
+                           <td className="p-4"><span className={`px-3 py-1 text-[10px] uppercase rounded-lg font-bold border ${exp.status === 'পেইড' ? 'bg-green-100 text-green-800 border-green-300' : exp.status === 'অনুমোদিত' ? 'bg-blue-50 text-blue-700 border-blue-200' : exp.status === 'বাতিল' ? 'bg-red-50 text-red-700 border-red-200' : 'bg-orange-50 text-orange-700 border-orange-200'}`}>{exp.status}</span></td>
                            <td className="p-4 flex space-x-1">
-                             {user.role === 'admin' && exp.status === t('pending') && <><button onClick={() => updateExpense(exp.id, {status: t('approved')})} className="bg-blue-100 text-blue-600 hover:bg-blue-600 hover:text-white p-2 rounded-lg" title="Approve"><i className="fa-solid fa-check"></i></button><button onClick={() => handleReject(exp.id)} className="bg-red-100 text-red-600 hover:bg-red-600 hover:text-white p-2 rounded-lg" title="Reject"><i className="fa-solid fa-xmark"></i></button></>}
-                             {user.role === 'admin' && exp.status === t('approved') && <button onClick={() => updateExpense(exp.id, {status: t('paid')})} className="bg-green-100 text-green-700 hover:bg-green-600 hover:text-white px-3 py-2 rounded-lg text-xs font-bold" title="Mark Paid">{t('markPaid')}</button>}
+                             {user.role === 'admin' && exp.status === 'অপেক্ষমান' && <><button onClick={() => updateExpense(exp.id, {status: 'অনুমোদিত'})} className="bg-blue-100 text-blue-600 hover:bg-blue-600 hover:text-white p-2 rounded-lg" title="Approve"><i className="fa-solid fa-check"></i></button><button onClick={() => handleReject(exp.id)} className="bg-red-100 text-red-600 hover:bg-red-600 hover:text-white p-2 rounded-lg" title="Reject"><i className="fa-solid fa-xmark"></i></button></>}
+                             {user.role === 'admin' && exp.status === 'অনুমোদিত' && <button onClick={() => updateExpense(exp.id, {status: 'পেইড'})} className="bg-green-100 text-green-700 hover:bg-green-600 hover:text-white px-3 py-2 rounded-lg text-xs font-bold" title="Mark Paid">পে করুন</button>}
                              <button onClick={() => {if(window.confirm('Delete?')) deleteExpense(exp.id)}} className="bg-slate-100 text-slate-500 hover:bg-red-500 hover:text-white p-2 rounded-lg" title="Delete"><i className="fa-solid fa-trash-can"></i></button>
                            </td>
                         </tr>
@@ -634,18 +601,18 @@
               </div>
 
               <div className="md:hidden grid grid-cols-1 gap-4">
-                 {displayExpenses.length === 0 ? <div className="p-6 text-center text-slate-400 bg-slate-50 rounded-xl border border-dashed border-slate-200">{t('noRecord')}</div> :
+                 {displayExpenses.length === 0 ? <div className="p-6 text-center text-slate-400 bg-slate-50 rounded-xl border border-dashed border-slate-200">কোনো রেকর্ড পাওয়া যায়নি</div> :
                    displayExpenses.map(exp => (
                      <div key={exp.id} className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm relative">
-                        <div className="flex justify-between items-start mb-2"><span className="text-xs font-bold text-slate-400 bg-slate-100 px-2 py-1 rounded-md">{exp.date}</span><span className={`px-2 py-0.5 text-[9px] rounded-md font-bold uppercase border ${exp.status === t('paid') ? 'bg-green-100 text-green-800' : exp.status === t('approved') ? 'bg-blue-50 text-blue-700' : exp.status === t('reject') ? 'bg-red-50 text-red-700' : 'bg-orange-50 text-orange-700'}`}>{exp.status}</span></div>
+                        <div className="flex justify-between items-start mb-2"><span className="text-xs font-bold text-slate-400 bg-slate-100 px-2 py-1 rounded-md">{exp.date}</span><span className={`px-2 py-0.5 text-[9px] rounded-md font-bold uppercase border ${exp.status === 'পেইড' ? 'bg-green-100 text-green-800' : exp.status === 'অনুমোদিত' ? 'bg-blue-50 text-blue-700' : exp.status === 'বাতিল' ? 'bg-red-50 text-red-700' : 'bg-orange-50 text-orange-700'}`}>{exp.status}</span></div>
                         {user.role === 'admin' && <div className="text-xs font-bold text-blue-600 mb-1">{exp.userName}</div>}
-                        <div className="font-black text-slate-800 text-xl mb-1">৳{exp.amount} <span className={`text-[9px] px-1 py-0.5 align-middle rounded font-bold ${exp.category==='travel' ? 'bg-indigo-100 text-indigo-700' : 'bg-purple-100 text-purple-700'}`}>{exp.category==='travel' ? t('travelExp') : t('otherExp')}</span></div>
+                        <div className="font-black text-slate-800 text-xl mb-1">৳{exp.amount} <span className={`text-[9px] px-1 py-0.5 align-middle rounded font-bold ${exp.category==='travel' ? 'bg-indigo-100 text-indigo-700' : 'bg-purple-100 text-purple-700'}`}>{exp.category==='travel' ? 'যাতায়াত' : 'অন্যান্য বিল'}</span></div>
                         <div className="text-sm text-slate-600 leading-tight mb-2">{exp.description}</div>
-                        {exp.rejectReason && <div className="text-xs text-red-600 bg-red-50 p-2 rounded mb-3 font-medium"><i className="fa-solid fa-circle-info mr-1"></i>{t('rejectReason')}: {exp.rejectReason}</div>}
+                        {exp.rejectReason && <div className="text-xs text-red-600 bg-red-50 p-2 rounded mb-3 font-medium"><i className="fa-solid fa-circle-info mr-1"></i>বাতিলের কারণ: {exp.rejectReason}</div>}
                         
                         <div className="flex flex-wrap gap-2 border-t border-slate-100 pt-3">
-                            {user.role === 'admin' && exp.status === t('pending') && <><button onClick={() => updateExpense(exp.id, {status: t('approved')})} className="flex-1 bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white py-2 rounded-xl text-xs font-bold transition"><i className="fa-solid fa-check"></i> Approve</button><button onClick={() => handleReject(exp.id)} className="flex-1 bg-red-50 text-red-600 hover:bg-red-600 hover:text-white py-2 rounded-xl text-xs font-bold transition"><i className="fa-solid fa-xmark"></i> Reject</button></>}
-                            {user.role === 'admin' && exp.status === t('approved') && <button onClick={() => updateExpense(exp.id, {status: t('paid')})} className="flex-1 bg-green-50 text-green-700 hover:bg-green-600 hover:text-white py-2 rounded-xl text-xs font-bold transition"><i className="fa-solid fa-check-double"></i> {t('markPaid')}</button>}
+                            {user.role === 'admin' && exp.status === 'অপেক্ষমান' && <><button onClick={() => updateExpense(exp.id, {status: 'অনুমোদিত'})} className="flex-1 bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white py-2 rounded-xl text-xs font-bold transition"><i className="fa-solid fa-check"></i> Approve</button><button onClick={() => handleReject(exp.id)} className="flex-1 bg-red-50 text-red-600 hover:bg-red-600 hover:text-white py-2 rounded-xl text-xs font-bold transition"><i className="fa-solid fa-xmark"></i> Reject</button></>}
+                            {user.role === 'admin' && exp.status === 'অনুমোদিত' && <button onClick={() => updateExpense(exp.id, {status: 'পেইড'})} className="flex-1 bg-green-50 text-green-700 hover:bg-green-600 hover:text-white py-2 rounded-xl text-xs font-bold transition"><i className="fa-solid fa-check-double"></i> পে করুন</button>}
                             <button onClick={() => {if(window.confirm('Delete?')) deleteExpense(exp.id)}} className="bg-slate-100 text-slate-500 hover:bg-red-500 hover:text-white px-3 py-2 rounded-xl text-xs font-bold transition"><i className="fa-solid fa-trash-can"></i></button>
                         </div>
                      </div>
@@ -655,24 +622,23 @@
           );
         }
 
-        // --- Report View with Delete Option ---
-        function ReportView({ user, reports, addReport, deleteReport, t }) {
+        function ReportView({ user, reports, addReport, deleteReport }) {
           const [customers, setCustomers] = useState(''); const [reportText, setReportText] = useState('');
-          const submitReport = (e) => { e.preventDefault(); addReport({ id: Date.now(), userId: user.id, userName: user.name, customers: parseInt(customers) || 0, reportText: reportText, date: new Date().toLocaleDateString('en-CA') }); setCustomers(''); setReportText(''); };
+          const submitReport = (e) => { e.preventDefault(); addReport({ id: Date.now(), userId: user.id, userName: user.name, customers: parseInt(customers) || 0, reportText: reportText, date: new Date().toLocaleDateString('bn-BD') }); setCustomers(''); setReportText(''); };
           const displayReports = user.role === 'admin' ? reports : reports.filter(r => r.userId === user.id);
 
           return (
             <div className="bg-white p-5 md:p-8 rounded-2xl border border-slate-200 shadow-sm">
-              <h2 className="text-xl md:text-2xl font-bold text-slate-800 mb-6 border-b border-slate-100 pb-3 md:pb-4 flex items-center gap-2"><i className="fa-solid fa-file-lines text-blue-500"></i> {t('reports')}</h2>
+              <h2 className="text-xl md:text-2xl font-bold text-slate-800 mb-6 border-b border-slate-100 pb-3 md:pb-4 flex items-center gap-2"><i className="fa-solid fa-file-lines text-blue-500"></i> ডেইলি রিপোর্ট</h2>
               {user.role === 'employee' && (
                 <form onSubmit={submitReport} className="mb-8 space-y-4 md:space-y-5 bg-blue-50/30 p-5 md:p-6 rounded-2xl border border-blue-100">
-                  <div><label className="block text-xs md:text-sm font-bold text-slate-700 mb-2">{t('customers')}</label><input type="number" value={customers} onChange={e => setCustomers(e.target.value)} className="w-full md:w-1/3 border border-slate-300 p-3.5 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" required min="0" placeholder="e.g. 5" /></div>
-                  <div><label className="block text-xs md:text-sm font-bold text-slate-700 mb-2">{t('reportDetails')}</label><textarea value={reportText} onChange={e => setReportText(e.target.value)} className="w-full border border-slate-300 p-4 rounded-xl h-28 md:h-32 focus:ring-2 focus:ring-blue-500 outline-none resize-none" required placeholder="আজকের কাজের বিস্তারিত লিখুন..."></textarea></div>
-                  <button type="submit" className="w-full md:w-auto bg-[#1e293b] text-white px-8 py-3.5 rounded-xl hover:bg-slate-800 font-bold shadow-lg active:scale-95 transition-all"><i className="fa-solid fa-paper-plane mr-2"></i> {t('submitReport')}</button>
+                  <div><label className="block text-xs md:text-sm font-bold text-slate-700 mb-2">কাস্টমার সাপোর্ট দিয়েছেন?</label><input type="number" value={customers} onChange={e => setCustomers(e.target.value)} className="w-full md:w-1/3 border border-slate-300 p-3.5 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" required min="0" placeholder="e.g. 5" /></div>
+                  <div><label className="block text-xs md:text-sm font-bold text-slate-700 mb-2">কাজের বিস্তারিত বিবরণ</label><textarea value={reportText} onChange={e => setReportText(e.target.value)} className="w-full border border-slate-300 p-4 rounded-xl h-28 md:h-32 focus:ring-2 focus:ring-blue-500 outline-none resize-none" required placeholder="আজকের কাজের বিস্তারিত লিখুন..."></textarea></div>
+                  <button type="submit" className="w-full md:w-auto bg-[#1e293b] text-white px-8 py-3.5 rounded-xl hover:bg-slate-800 font-bold shadow-lg active:scale-95 transition-all"><i className="fa-solid fa-paper-plane mr-2"></i> রিপোর্ট জমা দিন</button>
                 </form>
               )}
               <div className="space-y-4">
-                {displayReports.length === 0 ? <div className="p-8 text-center text-slate-400 border border-dashed border-slate-300 rounded-2xl bg-slate-50 font-medium">{t('noRecord')}</div> :
+                {displayReports.length === 0 ? <div className="p-8 text-center text-slate-400 border border-dashed border-slate-300 rounded-2xl bg-slate-50 font-medium">কোনো রেকর্ড পাওয়া যায়নি</div> :
                   displayReports.map(rep => (
                     <div key={rep.id} className="border border-slate-200 rounded-2xl p-4 md:p-5 shadow-sm bg-white relative">
                       {user.role === 'admin' && <button onClick={() => {if(window.confirm('Delete Report?')) deleteReport(rep.id)}} className="absolute top-4 right-4 text-red-400 hover:text-red-600 bg-red-50 p-2 rounded-lg"><i className="fa-solid fa-trash-can"></i></button>}
@@ -688,8 +654,126 @@
           );
         }
 
-        // --- Employees View ---
-        function EmployeesView({ users, addUser, updateUser, deleteUser, t, lang }) {
+        function SalaryView({ user, users, salaries, addSalary, updateSalary, deleteSalary }) {
+           const [empId, setEmpId] = useState(''); const [month, setMonth] = useState(''); const [baseSalary, setBaseSalary] = useState('');
+           const [additions, setAdditions] = useState(''); const [deductions, setDeductions] = useState(''); const [deductionReason, setDeductionReason] = useState('');
+           const [status, setStatus] = useState('পেন্ডিং');
+
+           const submitSalary = (e) => {
+              e.preventDefault();
+              const emp = users.find(u => u.id.toString() === empId);
+              if(!emp) return;
+              
+              const netSalary = (parseFloat(baseSalary)||0) + (parseFloat(additions)||0) - (parseFloat(deductions)||0);
+
+              addSalary({ id: Date.now(), userId: emp.id, userName: emp.name, month: month, baseSalary: parseFloat(baseSalary)||0, additions: parseFloat(additions)||0, deductions: parseFloat(deductions)||0, deductionReason: deductionReason, status: status, netSalary: netSalary });
+              
+              setEmpId(''); setMonth(''); setBaseSalary(''); setAdditions(''); setDeductions(''); setDeductionReason(''); setStatus('পেন্ডিং');
+              alert('বেতন সফলভাবে আপডেট করা হয়েছে!');
+           };
+
+           const displaySalaries = user.role === 'admin' ? salaries : salaries.filter(s => s.userId === user.id);
+
+           return (
+              <div className="bg-white p-5 md:p-8 rounded-2xl border border-slate-200 shadow-sm">
+                 <h2 className="text-xl md:text-2xl font-bold text-slate-800 mb-6 border-b border-slate-100 pb-3 md:pb-4 flex items-center gap-2"><i className="fa-solid fa-sack-dollar text-blue-500"></i> বেতনের স্ট্যাটাস ও হিস্টোরি</h2>
+                 
+                 {user.role === 'admin' && (
+                    <form onSubmit={submitSalary} className="mb-8 bg-blue-50/30 p-5 rounded-2xl border border-blue-100 grid grid-cols-1 md:grid-cols-3 gap-4">
+                       <div><label className="block text-xs font-bold mb-2 text-slate-700">কর্মচারী</label><select required value={empId} onChange={e=>setEmpId(e.target.value)} className="w-full border border-slate-300 p-3 rounded-xl focus:ring-2 focus:ring-blue-500"><option value="">নির্বাচন করুন</option>{users.filter(u=>u.role==='employee').map(u=><option key={u.id} value={u.id}>{u.name}</option>)}</select></div>
+                       <div><label className="block text-xs font-bold mb-2 text-slate-700">মাস</label><input type="month" required value={month} onChange={e=>setMonth(e.target.value)} className="w-full border border-slate-300 p-3 rounded-xl focus:ring-2 focus:ring-blue-500" /></div>
+                       <div><label className="block text-xs font-bold mb-2 text-slate-700">স্ট্যাটাস</label><select value={status} onChange={e=>setStatus(e.target.value)} className="w-full border border-slate-300 p-3 rounded-xl focus:ring-2 focus:ring-blue-500"><option value="পেন্ডিং">পেন্ডিং</option><option value="অনুমোদিত">অনুমোদিত</option><option value="পেইড">পেইড</option></select></div>
+                       
+                       <div><label className="block text-xs font-bold mb-2 text-slate-700">মূল বেতন (৳)</label><input type="number" required value={baseSalary} onChange={e=>setBaseSalary(e.target.value)} className="w-full border border-slate-300 p-3 rounded-xl focus:ring-2 focus:ring-blue-500" placeholder="0" /></div>
+                       <div><label className="block text-xs font-bold mb-2 text-slate-700">বেতন বাবদ জমা (৳)</label><input type="number" value={additions} onChange={e=>setAdditions(e.target.value)} className="w-full border border-slate-300 p-3 rounded-xl focus:ring-2 focus:ring-blue-500" placeholder="0" /></div>
+                       <div><label className="block text-xs font-bold mb-2 text-slate-700">বেতন কর্তন (৳)</label><input type="number" value={deductions} onChange={e=>setDeductions(e.target.value)} className="w-full border border-slate-300 p-3 rounded-xl focus:ring-2 focus:ring-blue-500" placeholder="0" /></div>
+                       
+                       <div className="md:col-span-2"><label className="block text-xs font-bold mb-2 text-slate-700">কর্তনের কারণ</label><input type="text" value={deductionReason} onChange={e=>setDeductionReason(e.target.value)} className="w-full border border-slate-300 p-3 rounded-xl focus:ring-2 focus:ring-blue-500" placeholder="যদি থাকে..." /></div>
+                       <div className="md:col-span-1 flex items-end"><button type="submit" className="w-full bg-blue-600 text-white px-4 py-3 rounded-xl hover:bg-blue-700 font-bold active:scale-95 transition-all">সেভ করুন</button></div>
+                    </form>
+                 )}
+
+                 <div className="space-y-4">
+                    {displaySalaries.length === 0 ? <div className="p-8 text-center text-slate-400 border border-dashed border-slate-300 rounded-2xl bg-slate-50 font-medium">কোনো বেতনের হিস্টোরি পাওয়া যায়নি</div> :
+                       displaySalaries.sort((a,b) => b.month.localeCompare(a.month)).map(sal => (
+                          <div key={sal.id} className="bg-white border border-slate-200 rounded-xl p-4 md:p-5 shadow-sm relative">
+                             {user.role === 'admin' && <button onClick={() => {if(window.confirm('Delete?')) deleteSalary(sal.id)}} className="absolute top-4 right-4 text-red-400 hover:text-red-600 bg-red-50 p-2 rounded-lg"><i className="fa-solid fa-trash-can"></i></button>}
+                             <div className="flex justify-between items-start mb-3 border-b border-slate-100 pb-3">
+                                <div><span className="bg-slate-100 text-slate-700 px-3 py-1 rounded-lg text-sm font-bold tracking-wide mr-2"><i className="fa-regular fa-calendar-days mr-1"></i> {sal.month}</span>{user.role === 'admin' && <span className="font-bold text-blue-600 text-sm">{sal.userName}</span>}</div>
+                                <span className={`px-3 py-1 rounded-lg text-xs font-bold ${sal.status === 'পেইড' ? 'bg-green-100 text-green-700' : sal.status === 'অনুমোদিত' ? 'bg-blue-100 text-blue-700' : 'bg-orange-100 text-orange-700'}`}>{sal.status}</span>
+                             </div>
+                             
+                             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+                                <div className="bg-slate-50 p-3 rounded-lg"><p className="text-[10px] text-slate-500 font-bold mb-1">মূল বেতন</p><p className="font-bold text-slate-800">৳{sal.baseSalary}</p></div>
+                                <div className="bg-indigo-50 p-3 rounded-lg"><p className="text-[10px] text-indigo-500 font-bold mb-1">বেতন বাবদ জমা (+)</p><p className="font-bold text-indigo-700">৳{sal.additions}</p></div>
+                                <div className="bg-red-50 p-3 rounded-lg"><p className="text-[10px] text-red-500 font-bold mb-1">বেতন কর্তন (-)</p><p className="font-bold text-red-600">৳{sal.deductions}</p></div>
+                                <div className="bg-green-50 p-3 rounded-lg border border-green-100"><p className="text-[10px] text-green-600 font-bold mb-1">প্রাপ্য বেতন (Net)</p><p className="text-lg font-black text-green-700 leading-none">৳{sal.netSalary}</p></div>
+                             </div>
+                             {sal.deductionReason && <div className="mt-3 text-xs bg-red-50 text-red-600 p-2 rounded-lg font-medium"><i className="fa-solid fa-circle-info mr-1"></i> কর্তনের কারণ: {sal.deductionReason}</div>}
+                             
+                             {user.role === 'admin' && sal.status !== 'পেইড' && (
+                                <div className="mt-4 flex gap-2">
+                                   {sal.status === 'পেন্ডিং' && <button onClick={()=>updateSalary(sal.id, {status: 'অনুমোদিত'})} className="bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white px-4 py-2 rounded-lg text-xs font-bold transition">অনুমোদন দিন</button>}
+                                   {sal.status === 'অনুমোদিত' && <button onClick={()=>updateSalary(sal.id, {status: 'পেইড'})} className="bg-green-50 text-green-700 hover:bg-green-600 hover:text-white px-4 py-2 rounded-lg text-xs font-bold transition">পেমেন্ট সম্পন্ন (Mark Paid)</button>}
+                                </div>
+                             )}
+                          </div>
+                       ))
+                    }
+                 </div>
+              </div>
+           );
+        }
+
+        function PaymentsView({ users, payments, addPayment, expenses }) {
+          const [empId, setEmpId] = useState(''); const [amount, setAmount] = useState(''); const [note, setNote] = useState('');
+          const submitPayment = (e) => {
+            e.preventDefault();
+            const emp = users.find(u => u.id.toString() === empId);
+            if(!emp) return;
+            addPayment({ id: Date.now(), userId: emp.id, userName: emp.name, amount: parseFloat(amount), note: note, date: new Date().toLocaleDateString('en-CA') });
+            setAmount(''); setNote('');
+          };
+
+          const totalTravelPaid = expenses.filter(e => e.status === 'পেইড' && e.category === 'travel').reduce((sum, e) => sum + e.amount, 0);
+          const totalOtherPaid = expenses.filter(e => e.status === 'পেইড' && e.category === 'other').reduce((sum, e) => sum + e.amount, 0);
+          const totalPay = payments.reduce((sum, p) => sum + p.amount, 0);
+
+          return (
+            <div className="bg-white p-5 md:p-8 rounded-2xl border border-slate-200 shadow-sm">
+              <h2 className="text-xl md:text-2xl font-bold text-slate-800 mb-6 border-b border-slate-100 pb-3 md:pb-4 flex items-center gap-2"><i className="fa-solid fa-file-invoice-dollar text-blue-500"></i> হিসাব ও পেমেন্ট</h2>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-10">
+                <div className="bg-indigo-50 border border-indigo-200 p-5 md:p-6 rounded-2xl shadow-sm"><p className="text-indigo-800 text-xs md:text-sm font-bold uppercase mb-1">মোট পেইড (যাতায়াত)</p><p className="text-2xl md:text-3xl font-black text-indigo-600">৳{totalTravelPaid}</p></div>
+                <div className="bg-purple-50 border border-purple-200 p-5 md:p-6 rounded-2xl shadow-sm"><p className="text-purple-800 text-xs md:text-sm font-bold uppercase mb-1">মোট পেইড (অন্যান্য বিল)</p><p className="text-2xl md:text-3xl font-black text-purple-600">৳{totalOtherPaid}</p></div>
+                <div className="bg-green-50 border border-green-200 p-5 md:p-6 rounded-2xl shadow-sm"><p className="text-green-800 text-xs md:text-sm font-bold uppercase mb-1">অন্যান্য পেমেন্ট</p><p className="text-2xl md:text-3xl font-black text-green-600">৳{totalPay}</p></div>
+              </div>
+              
+              <form onSubmit={submitPayment} className="mb-8 md:mb-10 bg-slate-50 p-5 md:p-6 rounded-2xl border border-slate-200 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 items-end">
+                <div><label className="block text-xs md:text-sm font-bold mb-2 text-slate-700">কর্মচারী</label><select required value={empId} onChange={e=>setEmpId(e.target.value)} className="w-full border border-slate-300 p-3.5 rounded-xl focus:ring-2 focus:ring-blue-500 bg-white"><option value="">-- নির্বাচন করুন --</option>{users.filter(u=>u.role==='employee').map(u => <option key={u.id} value={u.id}>{u.name}</option>)}</select></div>
+                <div><label className="block text-xs md:text-sm font-bold mb-2 text-slate-700">পরিমাণ (৳)</label><div className="relative"><span className="absolute left-4 top-3.5 text-slate-400 font-bold">৳</span><input type="number" required value={amount} onChange={e=>setAmount(e.target.value)} className="w-full pl-8 pr-4 py-3.5 bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500" placeholder="0.00" /></div></div>
+                <div><label className="block text-xs md:text-sm font-bold mb-2 text-slate-700">নোট</label><input required value={note} onChange={e=>setNote(e.target.value)} className="w-full px-4 py-3.5 bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500" placeholder="Short note..." /></div>
+                <div className="md:col-span-3 mt-2"><button type="submit" className="w-full md:w-auto bg-[#1e293b] text-white px-8 py-3.5 rounded-xl hover:bg-slate-800 font-bold shadow-lg active:scale-95 transition-all"><i className="fa-solid fa-plus mr-2"></i> পেমেন্ট এন্ট্রি করুন</button></div>
+              </form>
+
+              <div className="hidden md:block overflow-x-auto rounded-xl border border-slate-200">
+                <table className="w-full text-left border-collapse"><thead><tr className="bg-slate-50 text-slate-500 uppercase text-xs tracking-wider border-b border-slate-200"><th className="p-4 font-bold">তারিখ</th><th className="p-4 font-bold">নাম</th><th className="p-4 font-bold">নোট</th><th className="p-4 font-bold">পরিমাণ</th></tr></thead>
+                  <tbody className="divide-y divide-slate-100">{payments.map(p => (<tr key={p.id} className="hover:bg-slate-50 transition"><td className="p-4 text-slate-500 font-medium">{p.date}</td><td className="p-4 font-bold text-slate-800">{p.userName}</td><td className="p-4 text-slate-600 text-sm">{p.note}</td><td className="p-4 font-black text-green-600 text-lg">৳ {p.amount}</td></tr>))}</tbody>
+                </table>
+              </div>
+              <div className="md:hidden grid grid-cols-1 gap-3">
+                 {payments.map(p => (
+                   <div key={p.id} className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
+                      <div><h4 className="font-bold text-slate-800 text-sm mb-0.5">{p.userName}</h4><div className="text-xs text-slate-500 mb-1.5"><i className="fa-regular fa-calendar mr-1"></i> {p.date}</div><span className="bg-slate-100 text-slate-600 text-[10px] font-bold px-2 py-0.5 rounded-md">{p.note}</span></div>
+                      <div className="font-black text-green-600 text-xl">৳{p.amount}</div>
+                   </div>
+                 ))}
+              </div>
+            </div>
+          );
+        }
+
+        function EmployeesView({ users, addUser, updateUser, deleteUser }) {
           const [editingId, setEditingId] = useState(null);
           const [name, setName] = useState(''); const [loginId, setLoginId] = useState(''); const [password, setPassword] = useState(''); const [designation, setDesignation] = useState('');
 
@@ -705,20 +789,20 @@
 
           return (
             <div className="bg-white p-5 md:p-8 rounded-2xl border border-slate-200 shadow-sm">
-              <h2 className="text-xl md:text-2xl font-bold text-slate-800 mb-6 border-b border-slate-100 pb-3 md:pb-4 flex items-center gap-2"><i className="fa-solid fa-users-gear text-blue-500"></i> {t('employees')}</h2>
+              <h2 className="text-xl md:text-2xl font-bold text-slate-800 mb-6 border-b border-slate-100 pb-3 md:pb-4 flex items-center gap-2"><i className="fa-solid fa-users-gear text-blue-500"></i> কর্মচারী প্রোফাইল</h2>
               <form onSubmit={submitUser} className="mb-8 bg-slate-50 p-5 md:p-6 rounded-2xl border border-slate-200 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
-                <div><label className="block text-xs md:text-sm font-bold mb-2 text-slate-700">{t('name')}</label><input required value={name} onChange={e=>setName(e.target.value)} className="w-full border border-slate-300 p-3.5 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Full Name" /></div>
-                <div><label className="block text-xs md:text-sm font-bold mb-2 text-slate-700">{t('loginID')}</label><input required value={loginId} onChange={e=>setLoginId(e.target.value)} className="w-full border border-slate-300 p-3.5 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Phone/Email" /></div>
-                <div><label className="block text-xs md:text-sm font-bold mb-2 text-slate-700">{t('password')}</label><input required value={password} onChange={e=>setPassword(e.target.value)} className="w-full border border-slate-300 p-3.5 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Password" /></div>
-                <div><label className="block text-xs md:text-sm font-bold mb-2 text-slate-700">{t('designation')}</label><input required value={designation} onChange={e=>setDesignation(e.target.value)} className="w-full border border-slate-300 p-3.5 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" placeholder="e.g. Technician" /></div>
+                <div><label className="block text-xs md:text-sm font-bold mb-2 text-slate-700">নাম</label><input required value={name} onChange={e=>setName(e.target.value)} className="w-full border border-slate-300 p-3.5 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Full Name" /></div>
+                <div><label className="block text-xs md:text-sm font-bold mb-2 text-slate-700">লগইন আইডি</label><input required value={loginId} onChange={e=>setLoginId(e.target.value)} className="w-full border border-slate-300 p-3.5 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Phone/Email" /></div>
+                <div><label className="block text-xs md:text-sm font-bold mb-2 text-slate-700">পাসওয়ার্ড</label><input required value={password} onChange={e=>setPassword(e.target.value)} className="w-full border border-slate-300 p-3.5 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Password" /></div>
+                <div><label className="block text-xs md:text-sm font-bold mb-2 text-slate-700">পদবী</label><input required value={designation} onChange={e=>setDesignation(e.target.value)} className="w-full border border-slate-300 p-3.5 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" placeholder="e.g. Technician" /></div>
                 <div className="md:col-span-2 mt-2 flex gap-3">
-                   <button type="submit" className="flex-1 md:flex-none bg-blue-600 text-white px-8 py-3.5 rounded-xl hover:bg-blue-700 font-bold shadow-lg active:scale-95 transition-all"><i className={`fa-solid ${editingId ? 'fa-pen-to-square' : 'fa-user-plus'} mr-2`}></i> {editingId ? t('editProfile') : (lang === 'bn' ? 'নতুন প্রোফাইল তৈরি করুন' : 'Create Profile')}</button>
+                   <button type="submit" className="flex-1 md:flex-none bg-blue-600 text-white px-8 py-3.5 rounded-xl hover:bg-blue-700 font-bold shadow-lg active:scale-95 transition-all"><i className={`fa-solid ${editingId ? 'fa-pen-to-square' : 'fa-user-plus'} mr-2`}></i> {editingId ? 'প্রোফাইল আপডেট' : 'নতুন প্রোফাইল তৈরি করুন'}</button>
                    {editingId && <button type="button" onClick={cancelEdit} className="px-6 py-3.5 rounded-xl bg-slate-200 text-slate-700 font-bold hover:bg-slate-300 transition-all">Cancel</button>}
                 </div>
               </form>
               <div className="hidden md:block overflow-x-auto rounded-xl border border-slate-200">
                 <table className="w-full text-left border-collapse">
-                  <thead><tr className="bg-slate-50 text-slate-500 uppercase text-xs tracking-wider border-b border-slate-200"><th className="p-4 font-bold">{t('name')}</th><th className="p-4 font-bold">Login ID</th><th className="p-4 font-bold">{t('password')}</th><th className="p-4 font-bold">{t('designation')}</th><th className="p-4 font-bold">{t('role')}</th><th className="p-4 font-bold text-center">{t('action')}</th></tr></thead>
+                  <thead><tr className="bg-slate-50 text-slate-500 uppercase text-xs tracking-wider border-b border-slate-200"><th className="p-4 font-bold">নাম</th><th className="p-4 font-bold">লগইন আইডি</th><th className="p-4 font-bold">পাসওয়ার্ড</th><th className="p-4 font-bold">পদবী</th><th className="p-4 font-bold">রোল</th><th className="p-4 font-bold text-center">অ্যাকশন</th></tr></thead>
                   <tbody className="divide-y divide-slate-100">
                     {users.map(u => (
                       <tr key={u.id} className="hover:bg-slate-50 transition">
@@ -735,157 +819,9 @@
                    <div key={u.id} className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col relative">
                       {u.role !== 'admin' && <div className="absolute top-4 right-4 flex gap-2"><button onClick={() => handleEdit(u)} className="text-blue-400 hover:text-blue-600 p-2"><i className="fa-solid fa-pen"></i></button><button onClick={() => {if(window.confirm('Delete Profile?')) deleteUser(u.id)}} className="text-red-400 hover:text-red-600 p-2"><i className="fa-solid fa-trash-can"></i></button></div>}
                       <div className="flex items-center gap-3 mb-3 border-b border-slate-100 pb-3">{u.avatar ? <img src={u.avatar} className="w-12 h-12 rounded-full object-cover shadow-sm" /> : <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-xl shadow-sm">{u.name.charAt(0)}</div>}<div><h4 className="font-bold text-slate-800 text-base leading-tight">{u.name}</h4><span className={`inline-block mt-1 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider rounded-md ${u.role === 'admin' ? 'bg-purple-100 text-purple-700' : 'bg-slate-200 text-slate-600'}`}>{u.role}</span></div></div>
-                      <div className="text-sm space-y-1.5 text-slate-600"><div className="flex justify-between"><span className="text-slate-400 text-xs">ID:</span> <span className="font-medium text-blue-600">{u.loginId}</span></div><div className="flex justify-between"><span className="text-slate-400 text-xs">Pass:</span> <span className="font-mono bg-slate-100 px-1.5 rounded">{u.password}</span></div><div className="flex justify-between"><span className="text-slate-400 text-xs">Desig:</span> <span>{u.designation}</span></div></div>
+                      <div className="text-sm space-y-1.5 text-slate-600"><div className="flex justify-between"><span className="text-slate-400 text-xs">আইডি:</span> <span className="font-medium text-blue-600">{u.loginId}</span></div><div className="flex justify-between"><span className="text-slate-400 text-xs">পাসওয়ার্ড:</span> <span className="font-mono bg-slate-100 px-1.5 rounded">{u.password}</span></div><div className="flex justify-between"><span className="text-slate-400 text-xs">পদবী:</span> <span>{u.designation}</span></div></div>
                    </div>
                  ))}
-              </div>
-            </div>
-          );
-        }
-
-        // --- Admin Payments, Salary & Monthly History View ---
-        function PaymentsView({ users, updateUser, payments, addPayment, expenses, t, lang }) {
-          const currentUserObj = users.find(u => u.loginId === JSON.parse(window.localStorage.getItem('goti_currentUser'))?.loginId);
-
-          const [empId, setEmpId] = useState(''); const [amount, setAmount] = useState(''); const [note, setNote] = useState('');
-          const [salEmpId, setSalEmpId] = useState(''); const [baseSal, setBaseSal] = useState(''); const [deduct, setDeduct] = useState('');
-
-          const submitPayment = (e) => {
-            e.preventDefault();
-            const emp = users.find(u => u.id.toString() === empId);
-            if(!emp) return;
-            addPayment({ id: Date.now(), userId: emp.id, userName: emp.name, amount: parseFloat(amount), note: note, date: new Date().toLocaleDateString('en-CA') });
-            setAmount(''); setNote('');
-          };
-
-          const submitSalary = (e) => {
-            e.preventDefault();
-            const emp = users.find(u => u.id.toString() === salEmpId);
-            if(!emp) return;
-            updateUser(emp.id, { baseSalary: parseFloat(baseSal) || 0, deduction: parseFloat(deduct) || 0 });
-            alert(lang === 'bn' ? 'বেতন আপডেট হয়েছে!' : 'Salary Updated!');
-            setSalEmpId(''); setBaseSal(''); setDeduct('');
-          };
-
-          // Filter history based on role
-          const displayExpenses = currentUserObj?.role === 'admin' ? expenses : expenses.filter(e => e.userId === currentUserObj?.id);
-          const displayPayments = currentUserObj?.role === 'admin' ? payments : payments.filter(p => p.userId === currentUserObj?.id);
-
-          // Group by Month
-          const historyMap = {};
-          displayExpenses.forEach(e => {
-              if (e.status === t('pending') || e.status === t('reject')) return;
-              const month = e.date.substring(0, 7); // Format: YYYY-MM
-              if(!historyMap[month]) historyMap[month] = { approved: 0, paidExp: 0, pay: 0, items: [] };
-              
-              if (e.status === t('approved')) {
-                  historyMap[month].approved += e.amount;
-              } else if (e.status === t('paid')) {
-                  historyMap[month].paidExp += e.amount;
-              }
-              historyMap[month].items.push({...e, type: 'Expense'});
-          });
-          displayPayments.forEach(p => {
-              const month = p.date.substring(0, 7);
-              if(!historyMap[month]) historyMap[month] = { approved: 0, paidExp: 0, pay: 0, items: [] };
-              historyMap[month].pay += p.amount;
-              historyMap[month].items.push({...p, type: 'Payment'});
-          });
-          
-          const historyKeys = Object.keys(historyMap).sort().reverse();
-
-          return (
-            <div className="bg-white p-5 md:p-8 rounded-2xl border border-slate-200 shadow-sm space-y-8">
-              <h2 className="text-xl md:text-2xl font-bold text-slate-800 border-b border-slate-100 pb-3 flex items-center gap-2">
-                <i className="fa-solid fa-wallet text-blue-500"></i> {t('payments')}
-              </h2>
-              
-              {/* Salary Section */}
-              <div className="bg-slate-50 p-5 rounded-2xl border border-slate-200">
-                <h3 className="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2"><i className="fa-solid fa-file-invoice-dollar text-green-600"></i> {t('salaryStatus')}</h3>
-                
-                {currentUserObj?.role === 'admin' ? (
-                  <form onSubmit={submitSalary} className="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
-                    <div><label className="block text-xs font-bold mb-2 text-slate-700">{lang === 'bn' ? 'কর্মচারী' : 'Employee'}</label><select required value={salEmpId} onChange={e=>setSalEmpId(e.target.value)} className="w-full border border-slate-300 p-3 rounded-xl focus:ring-2 focus:ring-green-500 bg-white"><option value="">-- নির্বাচন করুন --</option>{users.filter(u=>u.role==='employee').map(u => <option key={u.id} value={u.id}>{u.name}</option>)}</select></div>
-                    <div><label className="block text-xs font-bold mb-2 text-slate-700">{t('baseSalary')}</label><input type="number" required value={baseSal} onChange={e=>setBaseSal(e.target.value)} className="w-full px-4 py-3 bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-green-500" placeholder="0" /></div>
-                    <div><label className="block text-xs font-bold mb-2 text-slate-700">{t('deductions')}</label><input type="number" required value={deduct} onChange={e=>setDeduct(e.target.value)} className="w-full px-4 py-3 bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-green-500" placeholder="0" /></div>
-                    <button type="submit" className="w-full bg-green-600 text-white px-4 py-3 rounded-xl hover:bg-green-700 font-bold active:scale-95 transition-all">{t('setSalary')}</button>
-                  </form>
-                ) : (
-                  <div className="grid grid-cols-3 gap-3 md:gap-6">
-                    <div className="bg-white border border-slate-200 p-4 rounded-xl text-center shadow-sm"><p className="text-[10px] md:text-sm text-slate-500 font-bold">{t('baseSalary')}</p><p className="text-lg md:text-2xl font-black text-slate-800">৳{currentUserObj?.baseSalary || 0}</p></div>
-                    <div className="bg-white border border-red-200 p-4 rounded-xl text-center shadow-sm"><p className="text-[10px] md:text-sm text-red-500 font-bold">{t('deductions')}</p><p className="text-lg md:text-2xl font-black text-red-600">৳{currentUserObj?.deduction || 0}</p></div>
-                    <div className="bg-green-50 border border-green-200 p-4 rounded-xl text-center shadow-sm"><p className="text-[10px] md:text-sm text-green-600 font-bold">{t('netSalary')}</p><p className="text-xl md:text-3xl font-black text-green-700">৳{(currentUserObj?.baseSalary || 0) - (currentUserObj?.deduction || 0)}</p></div>
-                  </div>
-                )}
-              </div>
-
-              {/* Payment Entry Form (Admin Only) */}
-              {currentUserObj?.role === 'admin' && (
-                <div className="bg-blue-50/50 p-5 rounded-2xl border border-blue-100">
-                  <h3 className="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2"><i className="fa-solid fa-money-check-dollar text-blue-600"></i> {t('paymentEntry')}</h3>
-                  <form onSubmit={submitPayment} className="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
-                    <div><label className="block text-xs font-bold mb-2 text-slate-700">{lang === 'bn' ? 'কর্মচারী' : 'Employee'}</label><select required value={empId} onChange={e=>setEmpId(e.target.value)} className="w-full border border-slate-300 p-3 rounded-xl focus:ring-2 focus:ring-blue-500 bg-white"><option value="">-- নির্বাচন করুন --</option>{users.filter(u=>u.role==='employee').map(u => <option key={u.id} value={u.id}>{u.name}</option>)}</select></div>
-                    <div><label className="block text-xs font-bold mb-2 text-slate-700">{t('amount')}</label><div className="relative"><span className="absolute left-3 top-3 text-slate-400 font-bold">৳</span><input type="number" required value={amount} onChange={e=>setAmount(e.target.value)} className="w-full pl-7 pr-3 py-3 bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500" placeholder="0.00" /></div></div>
-                    <div className="md:col-span-1"><label className="block text-xs font-bold mb-2 text-slate-700">Note</label><input required value={note} onChange={e=>setNote(e.target.value)} className="w-full px-4 py-3 bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500" placeholder="..." /></div>
-                    <button type="submit" className="w-full bg-[#1e293b] text-white px-4 py-3 rounded-xl hover:bg-slate-800 font-bold active:scale-95 transition-all"><i className="fa-solid fa-plus mr-2"></i> Submit</button>
-                  </form>
-                </div>
-              )}
-
-              {/* Monthly History View */}
-              <div>
-                <h3 className="text-lg font-bold text-slate-800 mb-4 border-b border-slate-200 pb-2"><i className="fa-solid fa-clock-rotate-left mr-2 text-slate-500"></i> {t('history')}</h3>
-                {historyKeys.length === 0 ? <div className="p-8 text-center text-slate-400 bg-slate-50 rounded-xl border border-dashed border-slate-200">{t('noRecord')}</div> :
-                  <div className="space-y-5">
-                    {historyKeys.map(month => {
-                      const data = historyMap[month];
-                      // format month like "July 2026"
-                      const [y, m] = month.split('-');
-                      const dateObj = new Date(y, m-1);
-                      const monthName = new Intl.DateTimeFormat(lang === 'bn'?'bn-BD':'en-US', {month:'long', year:'numeric'}).format(dateObj);
-                      
-                      return (
-                        <div key={month} className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
-                           <div className="bg-slate-100 px-5 py-3 font-bold text-slate-700 tracking-wide border-b border-slate-200">{monthName}</div>
-                           <div className="p-5 grid grid-cols-1 md:grid-cols-3 gap-4">
-                              <div className="bg-blue-50 border border-blue-100 p-4 rounded-xl flex justify-between items-center">
-                                 <div><p className="text-[10px] md:text-xs text-blue-600 font-bold uppercase">{lang === 'bn' ? 'অনুমোদিত ব্যালেন্স' : 'Approved Balance'}</p><p className="text-lg font-black text-blue-700">৳{data.approved}</p></div>
-                                 <i className="fa-solid fa-clipboard-check text-2xl text-blue-200"></i>
-                              </div>
-                              <div className="bg-orange-50 border border-orange-100 p-4 rounded-xl flex justify-between items-center">
-                                 <div><p className="text-[10px] md:text-xs text-orange-600 font-bold uppercase">{lang === 'bn' ? 'পেইড খরচ' : 'Paid Expenses'}</p><p className="text-lg font-black text-orange-700">৳{data.paidExp}</p></div>
-                                 <i className="fa-solid fa-money-bill-wave text-2xl text-orange-200"></i>
-                              </div>
-                              <div className="bg-green-50 border border-green-100 p-4 rounded-xl flex justify-between items-center">
-                                 <div><p className="text-[10px] md:text-xs text-green-600 font-bold uppercase">{lang === 'bn' ? 'পেমেন্ট প্রদান' : 'Payments Given'}</p><p className="text-lg font-black text-green-700">৳{data.pay}</p></div>
-                                 <i className="fa-solid fa-hand-holding-dollar text-2xl text-green-200"></i>
-                              </div>
-                           </div>
-                           
-                           {/* Simple list of history items for that month */}
-                           <div className="px-5 pb-5 max-h-48 overflow-y-auto">
-                              <table className="w-full text-left text-xs md:text-sm">
-                                <tbody>
-                                  {data.items.sort((a,b) => new Date(b.date) - new Date(a.date)).map((item, idx) => (
-                                    <tr key={idx} className="border-b border-slate-100 hover:bg-slate-50">
-                                      <td className="py-2 text-slate-500 w-20">{item.date.split('-')[2]} Date</td>
-                                      <td className="py-2 font-medium text-slate-700">{item.userName}</td>
-                                      <td className="py-2 text-slate-500">{item.type === 'Payment' ? item.note : item.description}</td>
-                                      <td className="py-2 text-right">
-                                        <span className={`font-bold ${item.type === 'Payment' ? 'text-green-600' : item.status === t('paid') ? 'text-orange-600' : 'text-blue-600'}`}>৳{item.amount}</span>
-                                        <span className="text-[8px] bg-slate-100 px-1 ml-1 rounded text-slate-500">{item.type === 'Expense' ? item.status : 'Paid'}</span>
-                                      </td>
-                                    </tr>
-                                  ))}
-                                </tbody>
-                              </table>
-                           </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                }
               </div>
             </div>
           );
@@ -902,11 +838,10 @@
           );
         }
 
-        function RealTimeClock({ lang }) {
+        function RealTimeClock() {
           const [time, setTime] = useState(new Date());
           useEffect(() => { const timer = setInterval(() => setTime(new Date()), 1000); return () => clearInterval(timer); }, []);
-          const locale = lang === 'bn' ? 'bn-BD' : 'en-US';
-          return <span>{new Intl.DateTimeFormat(locale, { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true }).format(time)}</span>;
+          return <span>{new Intl.DateTimeFormat('bn-BD', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true }).format(time)}</span>;
         }
 
         function AnalogClock() {
@@ -915,7 +850,7 @@
           const secDeg = time.getSeconds() * 6, minDeg = time.getMinutes() * 6 + time.getSeconds() * 0.1, hrDeg = (time.getHours() % 12) * 30 + time.getMinutes() * 0.5;
           return (
             <div className="relative w-[150px] h-[150px] md:w-48 md:h-48 rounded-full border-[6px] border-slate-200 shadow-[inset_0_2px_15px_rgba(0,0,0,0.1)] bg-white flex items-center justify-center">
-              <span className="absolute top-2 text-xs md:text-sm font-bold text-slate-400">12</span><span className="absolute right-3 text-xs md:text-sm font-bold text-slate-400">3</span><span className="absolute bottom-2 text-xs md:text-sm font-bold text-slate-400">6</span><span className="absolute left-3 text-xs md:text-sm font-bold text-slate-400">9</span>
+              <span className="absolute top-2 text-xs md:text-sm font-bold text-slate-400">১২</span><span className="absolute right-3 text-xs md:text-sm font-bold text-slate-400">৩</span><span className="absolute bottom-2 text-xs md:text-sm font-bold text-slate-400">৬</span><span className="absolute left-3 text-xs md:text-sm font-bold text-slate-400">৯</span>
               <div className="absolute w-1 md:w-1.5 h-10 md:h-12 bg-slate-800 rounded-full origin-bottom" style={{ transform: `translateY(-50%) rotate(${hrDeg}deg)` }}></div>
               <div className="absolute w-0.5 md:w-1 h-14 md:h-16 bg-blue-600 rounded-full origin-bottom" style={{ transform: `translateY(-50%) rotate(${minDeg}deg)` }}></div>
               <div className="absolute w-[1px] md:w-0.5 h-16 md:h-20 bg-red-500 rounded-full origin-bottom" style={{ transform: `translateY(-50%) rotate(${secDeg}deg)` }}></div>
@@ -924,11 +859,10 @@
           );
         }
 
-        function BanglaCalendar({ lang }) {
+        function BanglaCalendar() {
           const today = new Date();
-          const locale = lang === 'bn' ? 'bn-BD' : 'en-US';
-          const monthYear = new Intl.DateTimeFormat(locale, { month: 'long', year: 'numeric' }).format(today);
-          const daysInWeek = lang === 'bn' ? ['রবি', 'সোম', 'মঙ্গল', 'বুধ', 'বৃহঃ', 'শুক্র', 'শনি'] : ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+          const monthYear = new Intl.DateTimeFormat('bn-BD', { month: 'long', year: 'numeric' }).format(today);
+          const daysInWeek = ['রবি', 'সোম', 'মঙ্গল', 'বুধ', 'বৃহঃ', 'শুক্র', 'শনি'];
           const year = today.getFullYear(), month = today.getMonth();
           const firstDay = new Date(year, month, 1).getDay(), daysInMonth = new Date(year, month + 1, 0).getDate();
           
@@ -939,13 +873,13 @@
                 <span className="text-lg md:text-xl font-bold tracking-wide">{monthYear}</span>
                 <button className="w-8 h-8 flex items-center justify-center bg-slate-800 rounded-full text-xs md:text-sm hover:bg-blue-600 transition"><i className="fa-solid fa-chevron-right"></i></button>
               </div>
-              <div className="overflow-x-auto w-full pb-2 scrollbar-hide">
-                <div className="grid grid-cols-7 gap-1 md:gap-2 text-center text-xs md:text-sm min-w-[240px]">
-                  {daysInWeek.map(d => <div key={d} className="text-blue-400 font-bold py-1 text-[10px] md:text-xs uppercase">{d}</div>)}
-                  {Array(firstDay).fill(null).map((_, i) => <div key={`blank-${i}`} className="py-1 md:py-2"></div>)}
+              <div className="w-full pb-2">
+                <div className="grid grid-cols-7 gap-1 text-center text-[10px] sm:text-xs md:text-sm">
+                  {daysInWeek.map(d => <div key={d} className="text-blue-400 font-bold py-1 uppercase">{d}</div>)}
+                  {Array(firstDay).fill(null).map((_, i) => <div key={`blank-${i}`} className="py-1"></div>)}
                   {Array.from({length: daysInMonth}, (_, i) => i + 1).map(d => (
-                    <div key={d} className={`py-1 md:py-1.5 rounded-lg flex items-center justify-center transition-colors ${d === today.getDate() ? 'bg-blue-500 text-white font-bold shadow-lg shadow-blue-500/40' : 'hover:bg-slate-700 text-slate-300'}`}>
-                      {new Intl.NumberFormat(locale).format(d)}
+                    <div key={d} className={`py-1.5 md:py-2 rounded-lg flex items-center justify-center transition-colors ${d === today.getDate() ? 'bg-blue-500 text-white font-bold shadow-lg shadow-blue-500/40' : 'hover:bg-slate-700 text-slate-300'}`}>
+                      {new Intl.NumberFormat('bn-BD').format(d)}
                     </div>
                   ))}
                 </div>
