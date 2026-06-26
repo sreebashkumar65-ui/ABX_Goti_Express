@@ -82,13 +82,11 @@
         };
         const formatDateISO = (date) => {
             const d = new Date(date);
-            // Handling local timezone offset for accurate YYYY-MM-DD
             d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
             return d.toISOString().split('T')[0];
         };
         const formatTimeEn = (date) => new Intl.DateTimeFormat('en-US', { hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:true }).format(date);
 
-        // Utility: convert Bengali digits to English
         const bengaliToEnglish = (str) => str.replace(/[০-৯]/g, d => '০১২৩৪৫৬৭৮৯'.indexOf(d).toString());
         const parseDateFromAnyFormat = (val) => {
             if (!val) return null;
@@ -107,7 +105,6 @@
             return null;
         };
 
-        // Migration helper for date fields
         const migrateDates = (items, fields = ['date']) => {
             return items.map(item => {
                 const newItem = {...item};
@@ -121,7 +118,6 @@
             });
         };
 
-        // 🟢 কাস্টম হুকস (Custom Hooks)
         function useLocalStorage(key, initialValue) {
           const [storedValue, setStoredValue] = useState(() => {
             try {
@@ -136,7 +132,6 @@
           return [storedValue, setStoredValue];
         }
 
-        // --- Hybrid Database Sync Hook (with migration) ---
         function useDatabase(collectionName, initialData = []) {
             const [data, setData] = useState(() => {
                 const local = window.localStorage.getItem('goti_' + collectionName);
@@ -165,9 +160,7 @@
                               .catch(err => console.log("Init write error:", err))
                         );
                     }
-                }, error => {
-                    console.error("Cloud Error:", error);
-                });
+                }, error => console.error("Cloud Error:", error));
                 return () => unsubscribe();
             }, [collectionName]);
 
@@ -175,24 +168,21 @@
                 const newData = [newItem, ...data];
                 setData(newData);
                 window.localStorage.setItem('goti_' + collectionName, JSON.stringify(newData));
-                db.collection(collectionName).doc(newItem.id.toString()).set(newItem)
-                  .catch(err => console.log("Add error:", err));
+                db.collection(collectionName).doc(newItem.id.toString()).set(newItem).catch(err => console.log("Add error:", err));
             };
 
             const updateData = (id, updatedFields) => {
                 const newData = data.map(item => item.id === id ? { ...item, ...updatedFields } : item);
                 setData(newData);
                 window.localStorage.setItem('goti_' + collectionName, JSON.stringify(newData));
-                db.collection(collectionName).doc(id.toString()).update(updatedFields)
-                  .catch(err => console.log("Update error:", err));
+                db.collection(collectionName).doc(id.toString()).update(updatedFields).catch(err => console.log("Update error:", err));
             };
 
             const deleteData = (id) => {
                 const newData = data.filter(item => item.id !== id);
                 setData(newData);
                 window.localStorage.setItem('goti_' + collectionName, JSON.stringify(newData));
-                db.collection(collectionName).doc(id.toString()).delete()
-                  .catch(err => console.log("Delete error:", err));
+                db.collection(collectionName).doc(id.toString()).delete().catch(err => console.log("Delete error:", err));
             };
 
             return [data, addData, updateData, deleteData];
@@ -234,8 +224,13 @@
           const [salaries, addSalaryBase, updateSalary, deleteSalary] = useDatabase('salaries', []);
           const [investments, addInvestment, updateInvestment, deleteInvestment] = useDatabase('investments', []);
           const [logs, addLog, , ] = useDatabase('logs', []);
+          
+          // 🌐 Website Management Databases
+          const [webConfig, addConfig, updateConfig, ] = useDatabase('websiteConfig', [{id: 1, adsStatus: false, popupUrl: '', banners: []}]);
+          const [packages, addPackage, updatePackage, deletePackage] = useDatabase('packages', []);
+          const [complaints, , , deleteComplaint] = useDatabase('complaints', []);
+          const [reviews, , updateReview, deleteReview] = useDatabase('reviews', []);
 
-          // Logging helper
           const logAction = (action) => {
             if (!currentUser) return;
             addLog({ id: Date.now(), userId: currentUser.id, userName: currentUser.name, action, timestamp: new Date().toISOString() });
@@ -259,7 +254,6 @@
               }
           }, [users, currentUser]);
 
-          // Auto delete logs older than 3 months
           useEffect(() => {
               if (currentUser?.role === 'admin') {
                   const threeMonthsAgo = new Date();
@@ -302,7 +296,7 @@
               <div className="min-h-screen bg-[#0f172a] flex flex-col items-center justify-center p-4">
                 {dialog.open && <DialogBox dialog={dialog} setDialog={setDialog} />}
                 <div className="mb-6 flex justify-center">
-                   <img src="https://i.ibb.co.com/fGYvBbLs/white-goti.png" alt="Logo" className="h-28 object-contain drop-shadow-2xl" />
+                   <img src="https://i.ibb.co.com/4Zy9b057/black-goti.png" alt="Logo" className="h-28 object-contain drop-shadow-2xl bg-white p-2 rounded-xl" />
                 </div>
                 <div className="max-w-md w-full bg-[#1e293b] border border-blue-900/50 rounded-2xl shadow-2xl p-8">
                   <div className="text-center mb-8">
@@ -333,7 +327,7 @@
 
               <div className={`fixed inset-y-0 left-0 z-50 w-72 md:w-64 transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0 transition-transform duration-300 ease-in-out bg-[#1e293b] flex flex-col shadow-2xl`}>
                 <div className="p-4 bg-[#0f172a] flex items-center justify-between md:justify-center h-16 shrink-0 border-b border-slate-700">
-                  <div className="flex items-center gap-3"><img src="https://i.ibb.co.com/fGYvBbLs/white-goti.png" alt="Logo" className="h-8 object-contain" /><h2 className="text-xl font-bold text-blue-400 truncate">গতি এক্সপ্রেস</h2></div>
+                  <div className="flex items-center gap-3"><img src="https://i.ibb.co.com/4Zy9b057/black-goti.png" alt="Logo" className="h-8 object-contain bg-white rounded p-1" /><h2 className="text-xl font-bold text-blue-400 truncate">গতি এক্সপ্রেস</h2></div>
                   <button className="md:hidden text-slate-400 p-2" onClick={() => setSidebarOpen(false)}><i className="fa-solid fa-xmark text-xl"></i></button>
                 </div>
                 
@@ -359,6 +353,10 @@
                     <SidebarItem icon="fa-wallet" label="পেমেন্ট" active={currentView === 'payments'} onClick={() => {setCurrentView('payments'); setSidebarOpen(false);}} />
                     
                     {(currentUser.role === 'admin' || currentUser.canInvest) && <SidebarItem icon="fa-chart-line" label="ইনভেস্টমেন্ট" active={currentView === 'investments'} onClick={() => {setCurrentView('investments'); setSidebarOpen(false);}} />}
+                    
+                    {/* 🌐 Website Management Menu */}
+                    {currentUser.role === 'admin' && <SidebarItem icon="fa-globe" label="ওয়েবসাইট কন্ট্রোল" active={currentView === 'website'} onClick={() => {setCurrentView('website'); setSidebarOpen(false);}} />}
+
                     {currentUser.role === 'admin' && <SidebarItem icon="fa-clipboard-list" label="লগ" active={currentView === 'logs'} onClick={() => {setCurrentView('logs'); setSidebarOpen(false);}} />}
                   </nav>
                 </div>
@@ -370,7 +368,7 @@
 
               <div className="flex-1 flex flex-col h-screen overflow-hidden relative">
                 <header className="hidden md:flex h-16 bg-[#0f172a] text-white items-center justify-between px-6 shrink-0 shadow-md z-10">
-                  <div className="flex items-center space-x-2 text-sm text-blue-300"><i className="fa-solid fa-house text-xs"></i> <span>›</span> <span className="text-blue-100 font-medium capitalize">{currentView === 'employees' ? 'স্টাফ প্রোফাইল' : currentView === 'attendance' ? 'উপস্থিতি' : currentView === 'leave' ? 'ছুটি' : currentView === 'expenses' ? 'যাতায়াত ও অন্যান্য বিল' : currentView === 'reports' ? 'ডেইলি রিপোর্ট' : currentView === 'salary' ? 'বেতন' : currentView === 'payments' ? 'পেমেন্ট' : currentView === 'investments' ? 'ইনভেস্টমেন্ট' : currentView === 'logs' ? 'লগ' : 'ড্যাশবোর্ড'}</span></div>
+                  <div className="flex items-center space-x-2 text-sm text-blue-300"><i className="fa-solid fa-house text-xs"></i> <span>›</span> <span className="text-blue-100 font-medium capitalize">{currentView === 'employees' ? 'স্টাফ প্রোফাইল' : currentView === 'attendance' ? 'উপস্থিতি' : currentView === 'leave' ? 'ছুটি' : currentView === 'expenses' ? 'যাতায়াত ও অন্যান্য বিল' : currentView === 'reports' ? 'ডেইলি রিপোর্ট' : currentView === 'salary' ? 'বেতন' : currentView === 'payments' ? 'পেমেন্ট' : currentView === 'investments' ? 'ইনভেস্টমেন্ট' : currentView === 'website' ? 'ওয়েবসাইট কন্ট্রোল' : currentView === 'logs' ? 'লগ' : 'ড্যাশবোর্ড'}</span></div>
                   <div className="flex items-center space-x-5">
                     <div className="flex items-center space-x-3 pl-5">
                       <div className="text-right"><p className="text-sm font-medium text-blue-50 leading-tight">{currentUser.name}</p><p className="text-xs text-blue-400 capitalize">{currentUser.role === 'admin' ? 'এডমিন' : 'স্টাফ'}</p></div>
@@ -380,7 +378,7 @@
                 </header>
 
                 <header className="md:hidden h-14 bg-[#0f172a] text-white flex items-center justify-between px-4 shrink-0 shadow-md z-10">
-                  <div className="flex items-center gap-2"><img src="https://i.ibb.co.com/fGYvBbLs/white-goti.png" alt="Logo" className="h-6 object-contain" /><span className="font-bold text-blue-100 capitalize">{currentView === 'employees' ? 'স্টাফ' : currentView === 'attendance' ? 'উপস্থিতি' : currentView === 'leave' ? 'ছুটি' : currentView === 'expenses' ? 'বিল' : currentView === 'reports' ? 'রিপোর্ট' : currentView === 'salary' ? 'বেতন' : currentView === 'payments' ? 'পেমেন্ট' : currentView === 'investments' ? 'ইনভেস্টমেন্ট' : currentView === 'logs' ? 'লগ' : 'ড্যাশবোর্ড'}</span></div>
+                  <div className="flex items-center gap-2"><img src="https://i.ibb.co.com/4Zy9b057/black-goti.png" alt="Logo" className="h-6 object-contain bg-white rounded px-1" /><span className="font-bold text-blue-100 capitalize">{currentView === 'employees' ? 'স্টাফ' : currentView === 'attendance' ? 'উপস্থিতি' : currentView === 'leave' ? 'ছুটি' : currentView === 'expenses' ? 'বিল' : currentView === 'reports' ? 'রিপোর্ট' : currentView === 'salary' ? 'বেতন' : currentView === 'payments' ? 'পেমেন্ট' : currentView === 'investments' ? 'ইনভেস্টমেন্ট' : currentView === 'website' ? 'ওয়েবসাইট কন্ট্রোল' : currentView === 'logs' ? 'লগ' : 'ড্যাশবোর্ড'}</span></div>
                 </header>
 
                 <main className="flex-1 overflow-x-hidden overflow-y-auto bg-[#e2e8f0] p-4 pb-24 md:pb-6 sm:p-6 lg:p-8">
@@ -394,11 +392,14 @@
                     {currentView === 'employees' && currentUser.role === 'admin' && <EmployeesView users={users} addUser={addUserWithLog} updateUser={updateUser} deleteUser={deleteUser} showConfirm={showConfirm} showAlert={showAlert} logAction={logAction} />}
                     {currentView === 'payments' && <PaymentsView user={currentUser} payments={payments} addPayment={addPaymentWithLog} deletePayment={deletePayment} users={users} expenses={expenses} showAlert={showAlert} showConfirm={showConfirm} logAction={logAction} />}
                     {currentView === 'investments' && (currentUser.role === 'admin' || currentUser.canInvest) && <InvestView user={currentUser} investments={investments} addInvestment={addInvestmentWithLog} updateInvestment={updateInvestment} deleteInvestment={deleteInvestment} showConfirm={showConfirm} showAlert={showAlert} logAction={logAction} />}
+                    
+                    {/* 🌐 Website Settings View */}
+                    {currentView === 'website' && currentUser.role === 'admin' && <WebsiteSettingsView config={webConfig[0] || {id: 1, adsStatus: false, popupUrl: '', banners: []}} updateConfig={updateConfig} packages={packages} addPackage={addPackage} updatePackage={updatePackage} deletePackage={deletePackage} complaints={complaints} deleteComplaint={deleteComplaint} reviews={reviews} updateReview={updateReview} deleteReview={deleteReview} showAlert={showAlert} showConfirm={showConfirm} logAction={logAction} />}
+
                     {currentView === 'logs' && currentUser.role === 'admin' && <LogsView logs={logs} />}
                   </div>
                 </main>
 
-                {/* bottom nav */}
                 <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 pb-safe pt-1 flex justify-around items-center h-[68px] z-30 shadow-[0_-10px_20px_rgba(0,0,0,0.05)] rounded-t-2xl">
                   <BottomNavItem icon="fa-house" label="ড্যাশবোর্ড" active={currentView === 'dashboard'} onClick={() => setCurrentView('dashboard')} />
                   
@@ -407,7 +408,7 @@
                   )}
                   
                   <div className="relative -top-5">
-                    <button onClick={() => setCurrentView((currentUser.role === 'admin' || currentUser.canViewReports) ? 'reports' : 'expenses')} className="w-14 h-14 bg-blue-600 rounded-full flex flex-col items-center justify-center text-white shadow-lg shadow-blue-500/40 border-4 border-[#e2e8f0] active:scale-95 transition-transform"><i className={`fa-solid ${(currentUser.role === 'admin' || currentUser.canViewReports) ? 'fa-file-lines' : 'fa-money-bill-wave'} text-xl`}></i></button>
+                    <button onClick={() => setCurrentView((currentUser.role === 'admin' || currentUser.canViewReports) ? 'reports' : 'expenses')} className="w-14 h-14 bg-gradient-to-r from-[#2d1960] to-[#5e3186] rounded-full flex flex-col items-center justify-center text-white shadow-lg shadow-purple-500/40 border-4 border-[#e2e8f0] active:scale-95 transition-transform"><i className={`fa-solid ${(currentUser.role === 'admin' || currentUser.canViewReports) ? 'fa-file-lines' : 'fa-money-bill-wave'} text-xl`}></i></button>
                   </div>
                   
                   <BottomNavItem icon="fa-sack-dollar" label="বেতন" active={currentView === 'salary'} onClick={() => setCurrentView('salary')} />
@@ -419,7 +420,191 @@
         }
 
         // ==========================================
-        // 🔵 Components
+        // 🔵 WEBSITE MANAGEMENT COMPONENT
+        // ==========================================
+        function WebsiteSettingsView({ config, updateConfig, packages, addPackage, updatePackage, deletePackage, complaints, deleteComplaint, reviews, updateReview, deleteReview, showAlert, showConfirm, logAction }) {
+            const [activeTab, setActiveTab] = useState('general');
+            
+            // General Settings State
+            const [adsStatus, setAdsStatus] = useState(config.adsStatus || false);
+            const [popupUrl, setPopupUrl] = useState(config.popupUrl || '');
+            const [newBanner, setNewBanner] = useState('');
+
+            // Package State
+            const [pkgName, setPkgName] = useState('');
+            const [pkgSpeed, setPkgSpeed] = useState('');
+            const [pkgPrice, setPkgPrice] = useState('');
+            const [pkgFeatures, setPkgFeatures] = useState('');
+
+            const saveGeneralSettings = () => {
+                updateConfig(1, { ...config, adsStatus, popupUrl });
+                logAction('Updated Website General Settings');
+                showAlert('সেটিংস সফলভাবে সেভ হয়েছে!');
+            };
+
+            const addBanner = () => {
+                if(!newBanner) return;
+                const updatedBanners = [...(config.banners || []), newBanner];
+                updateConfig(1, { ...config, banners: updatedBanners });
+                setNewBanner('');
+                logAction('Added new website banner');
+                showAlert('ব্যানার যুক্ত হয়েছে!');
+            };
+
+            const removeBanner = (index) => {
+                const updatedBanners = [...config.banners];
+                updatedBanners.splice(index, 1);
+                updateConfig(1, { ...config, banners: updatedBanners });
+                logAction('Removed website banner');
+            };
+
+            const submitPackage = (e) => {
+                e.preventDefault();
+                addPackage({
+                    id: Date.now(),
+                    name: pkgName,
+                    speed: pkgSpeed,
+                    price: parseFloat(pkgPrice),
+                    features: pkgFeatures.split(',').map(f => f.trim())
+                });
+                setPkgName(''); setPkgSpeed(''); setPkgPrice(''); setPkgFeatures('');
+                logAction(`Added broadband package: ${pkgName}`);
+                showAlert('নতুন প্যাকেজ যুক্ত হয়েছে!');
+            };
+
+            return (
+                <div className="bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200">
+                    {/* Header */}
+                    <div className="bg-gradient-to-r from-[#2d1960] to-[#5e3186] p-6 text-white">
+                        <h2 className="text-2xl font-bold flex items-center gap-3"><i className="fa-solid fa-globe text-purple-300"></i> ওয়েবসাইট কন্ট্রোল প্যানেল</h2>
+                        <p className="text-purple-200 text-sm mt-1">পাবলিক ওয়েবসাইট gotiexpress.com এর ডিজাইন ও ডেটা এখান থেকে নিয়ন্ত্রণ করুন</p>
+                    </div>
+
+                    {/* Tabs */}
+                    <div className="flex overflow-x-auto bg-slate-50 border-b border-slate-200 scrollbar-hide">
+                        <button onClick={()=>setActiveTab('general')} className={`px-6 py-4 text-sm font-bold whitespace-nowrap transition-colors border-b-2 ${activeTab === 'general' ? 'border-[#5e3186] text-[#2d1960]' : 'border-transparent text-slate-500 hover:bg-slate-100'}`}><i className="fa-solid fa-gear mr-2"></i> ব্যানার ও অ্যাডস</button>
+                        <button onClick={()=>setActiveTab('packages')} className={`px-6 py-4 text-sm font-bold whitespace-nowrap transition-colors border-b-2 ${activeTab === 'packages' ? 'border-[#5e3186] text-[#2d1960]' : 'border-transparent text-slate-500 hover:bg-slate-100'}`}><i className="fa-solid fa-wifi mr-2"></i> প্যাকেজ সমূহ</button>
+                        <button onClick={()=>setActiveTab('complaints')} className={`px-6 py-4 text-sm font-bold whitespace-nowrap transition-colors border-b-2 ${activeTab === 'complaints' ? 'border-[#5e3186] text-[#2d1960]' : 'border-transparent text-slate-500 hover:bg-slate-100'}`}><i className="fa-solid fa-triangle-exclamation mr-2"></i> অভিযোগ বক্স</button>
+                        <button onClick={()=>setActiveTab('reviews')} className={`px-6 py-4 text-sm font-bold whitespace-nowrap transition-colors border-b-2 ${activeTab === 'reviews' ? 'border-[#5e3186] text-[#2d1960]' : 'border-transparent text-slate-500 hover:bg-slate-100'}`}><i className="fa-solid fa-star mr-2"></i> কাস্টমার রিভিউ</button>
+                    </div>
+
+                    <div className="p-6 md:p-8">
+                        {/* TAB 1: General Settings */}
+                        {activeTab === 'general' && (
+                            <div className="space-y-10 animate-fade-in-up">
+                                {/* Popup Ads */}
+                                <div>
+                                    <h3 className="text-lg font-bold text-[#2d1960] mb-4 border-b border-purple-100 pb-2"><i className="fa-solid fa-bullhorn mr-2 text-[#5e3186]"></i> পপ-আপ অ্যাডস (Popup Ads)</h3>
+                                    <div className="bg-purple-50 border border-purple-100 p-5 rounded-2xl flex flex-col md:flex-row gap-5 items-start md:items-center">
+                                        <div className="flex-1 w-full">
+                                            <label className="block text-sm font-bold text-slate-700 mb-2">অ্যাডের ছবির লিংক (URL)</label>
+                                            <input type="text" value={popupUrl} onChange={e=>setPopupUrl(e.target.value)} className="w-full border border-slate-300 p-3 rounded-xl focus:ring-2 focus:ring-[#5e3186] outline-none" placeholder="https://image-link.jpg" />
+                                        </div>
+                                        <div className="flex items-center gap-3 bg-white p-3 border border-slate-200 rounded-xl">
+                                            <span className="text-sm font-bold text-slate-700">স্ট্যাটাস:</span>
+                                            <label className="relative inline-flex items-center cursor-pointer">
+                                              <input type="checkbox" checked={adsStatus} onChange={e=>setAdsStatus(e.target.checked)} className="sr-only peer" />
+                                              <div className="w-11 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-500"></div>
+                                              <span className={`ml-3 text-sm font-bold ${adsStatus ? 'text-green-600' : 'text-slate-500'}`}>{adsStatus ? 'ON' : 'OFF'}</span>
+                                            </label>
+                                        </div>
+                                        <button onClick={saveGeneralSettings} className="w-full md:w-auto bg-[#2d1960] text-white px-8 py-3 rounded-xl font-bold hover:bg-[#5e3186] transition-colors whitespace-nowrap shadow-md">সেভ সেটিংস</button>
+                                    </div>
+                                </div>
+
+                                {/* Banner Management */}
+                                <div>
+                                    <h3 className="text-lg font-bold text-[#2d1960] mb-4 border-b border-purple-100 pb-2"><i className="fa-solid fa-images mr-2 text-[#5e3186]"></i> হোমপেজ স্লাইডার ব্যানার</h3>
+                                    <div className="flex flex-col md:flex-row gap-3 mb-6">
+                                        <input type="text" value={newBanner} onChange={e=>setNewBanner(e.target.value)} className="flex-1 border border-slate-300 p-3 rounded-xl focus:ring-2 focus:ring-[#5e3186] outline-none" placeholder="ব্যানার ইমেজের লিংক (URL) দিন" />
+                                        <button onClick={addBanner} className="bg-[#5e3186] text-white px-6 py-3 rounded-xl font-bold hover:bg-[#2d1960] transition-colors"><i className="fa-solid fa-plus mr-2"></i> ব্যানার যোগ করুন</button>
+                                    </div>
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                        {(!config.banners || config.banners.length === 0) && <p className="text-slate-500 text-sm">কোনো ব্যানার যুক্ত করা নেই। ডিফল্ট কালার ওয়েবসাইটের হোমপেজে দেখাবে।</p>}
+                                        {config.banners?.map((url, i) => (
+                                            <div key={i} className="relative rounded-2xl overflow-hidden border border-slate-200 shadow-sm group aspect-video bg-slate-100">
+                                                <img src={url} alt={`Banner ${i+1}`} className="w-full h-full object-cover" />
+                                                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                                    <button onClick={() => showConfirm('ব্যানারটি মুছে ফেলতে চান?', () => removeBanner(i))} className="bg-red-500 text-white w-10 h-10 rounded-full hover:scale-110 transition-transform"><i className="fa-solid fa-trash-can"></i></button>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* TAB 2: Packages */}
+                        {activeTab === 'packages' && (
+                            <div className="animate-fade-in-up">
+                                <form onSubmit={submitPackage} className="bg-purple-50 p-6 rounded-2xl border border-purple-100 mb-8 grid grid-cols-1 md:grid-cols-3 gap-5 items-end">
+                                    <div><label className="block text-xs font-bold text-slate-700 mb-2">প্যাকেজের নাম</label><input required value={pkgName} onChange={e=>setPkgName(e.target.value)} className="w-full border border-slate-300 p-3 rounded-xl focus:ring-2 focus:ring-[#5e3186] outline-none bg-white" placeholder="e.g. Basic Plan" /></div>
+                                    <div><label className="block text-xs font-bold text-slate-700 mb-2">স্পিড (Mbps)</label><input required value={pkgSpeed} onChange={e=>setPkgSpeed(e.target.value)} className="w-full border border-slate-300 p-3 rounded-xl focus:ring-2 focus:ring-[#5e3186] outline-none bg-white" placeholder="e.g. 5 Mbps" /></div>
+                                    <div><label className="block text-xs font-bold text-slate-700 mb-2">মূল্য (৳)</label><input type="number" required value={pkgPrice} onChange={e=>setPkgPrice(e.target.value)} className="w-full border border-slate-300 p-3 rounded-xl focus:ring-2 focus:ring-[#5e3186] outline-none bg-white" placeholder="e.g. 500" /></div>
+                                    <div className="md:col-span-2"><label className="block text-xs font-bold text-slate-700 mb-2">সুবিধাসমূহ (কমা দিয়ে লিখুন)</label><input required value={pkgFeatures} onChange={e=>setPkgFeatures(e.target.value)} className="w-full border border-slate-300 p-3 rounded-xl focus:ring-2 focus:ring-[#5e3186] outline-none bg-white" placeholder="e.g. YouTube Free, BDIX, 24/7 Support" /></div>
+                                    <button type="submit" className="bg-[#2d1960] text-white p-3 rounded-xl font-bold hover:bg-[#5e3186] transition-colors"><i className="fa-solid fa-plus mr-2"></i> প্যাকেজ যোগ করুন</button>
+                                </form>
+
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                                    {packages.length === 0 ? <p className="text-slate-500">কোনো প্যাকেজ নেই।</p> : packages.map(pkg => (
+                                        <div key={pkg.id} className="bg-white border-2 border-slate-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
+                                            <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#2d1960] to-[#5e3186]"></div>
+                                            <button onClick={() => showConfirm('প্যাকেজটি মুছে ফেলতে চান?', () => {deletePackage(pkg.id); logAction(`Deleted pkg ${pkg.name}`);})} className="absolute top-4 right-4 text-red-300 hover:text-red-500"><i className="fa-solid fa-trash-can"></i></button>
+                                            <h3 className="text-xl font-bold text-slate-800">{pkg.name}</h3>
+                                            <div className="text-3xl font-black text-[#5e3186] my-2">{pkg.speed}</div>
+                                            <div className="text-lg font-bold text-slate-600 mb-4">৳ {pkg.price} <span className="text-sm font-normal">/মাস</span></div>
+                                            <ul className="space-y-2 mb-4 text-sm text-slate-600">
+                                                {pkg.features.map((f, i) => <li key={i}><i className="fa-solid fa-circle-check text-green-500 mr-2"></i> {f}</li>)}
+                                            </ul>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* TAB 3: Complaints */}
+                        {activeTab === 'complaints' && (
+                            <div className="animate-fade-in-up">
+                                <div className="space-y-4">
+                                    {complaints.length === 0 ? <div className="p-8 text-center text-slate-500 bg-slate-50 rounded-2xl border border-dashed">কোনো অভিযোগ নেই।</div> : complaints.map(c => (
+                                        <div key={c.id} className="bg-white p-5 rounded-2xl border border-red-100 shadow-sm relative pl-16">
+                                            <div className="absolute left-5 top-5 w-8 h-8 bg-red-100 text-red-500 rounded-full flex items-center justify-center"><i className="fa-solid fa-triangle-exclamation"></i></div>
+                                            <button onClick={() => showConfirm('অভিযোগটি মুছে ফেলতে চান?', () => deleteComplaint(c.id))} className="absolute top-4 right-4 text-slate-300 hover:text-red-500"><i className="fa-solid fa-trash-can"></i></button>
+                                            <div className="flex justify-between items-center mb-2 pr-8">
+                                                <h4 className="font-bold text-slate-800">{c.name} <span className="text-xs text-slate-400 font-normal ml-2">{c.date}</span></h4>
+                                                <a href={`tel:${c.phone}`} className="text-blue-600 bg-blue-50 px-3 py-1 rounded-lg text-xs font-bold"><i className="fa-solid fa-phone mr-1"></i> {c.phone}</a>
+                                            </div>
+                                            <p className="text-slate-600 text-sm whitespace-pre-wrap">{c.details}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* TAB 4: Reviews */}
+                        {activeTab === 'reviews' && (
+                            <div className="animate-fade-in-up">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    {reviews.length === 0 ? <div className="p-8 md:col-span-2 text-center text-slate-500 bg-slate-50 rounded-2xl border border-dashed">কোনো রিভিউ নেই।</div> : reviews.map(r => (
+                                        <div key={r.id} className="bg-white p-5 rounded-2xl border border-yellow-100 shadow-sm relative">
+                                            <button onClick={() => showConfirm('রিভিউটি মুছে ফেলতে চান?', () => deleteReview(r.id))} className="absolute top-4 right-4 text-slate-300 hover:text-red-500"><i className="fa-solid fa-trash-can"></i></button>
+                                            <div className="flex items-center gap-1 text-yellow-400 text-sm mb-2">
+                                                {[...Array(5)].map((_, i) => <i key={i} className={`fa-star ${i < r.rating ? 'fa-solid' : 'fa-regular text-slate-300'}`}></i>)}
+                                            </div>
+                                            <h4 className="font-bold text-slate-800 text-sm">{r.customerName} <span className="text-xs text-slate-400 font-normal ml-2">{r.date}</span></h4>
+                                            <p className="text-slate-600 text-sm mt-2 italic">"{r.comment}"</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            );
+        }
+
+        // ==========================================
+        // 🔵 Existing Components (DialogBox, Dashboard, Attendance, Leave, Expense, Report, Salary, Employees, Payments, Invest, Logs, Clocks, Calendar)
         // ==========================================
         
         function DialogBox({ dialog, setDialog }) {
@@ -777,7 +962,7 @@
           
           const submitLeave = (e) => { 
              e.preventDefault(); 
-             const newLeave = { id: Date.now(), userId: user.id, userName: user.name, startDate, endDate, reason, requestDate: formatDateEn(new Date()), status: 'অপেক্ষমান' };
+             const newLeave = { id: Date.now(), userId: user.id, userName: user.name, startDate, endDate, reason, requestDate: formatDateISO(new Date()), status: 'অপেক্ষমান' };
              addLeave(newLeave);
              setStartDate(''); setEndDate(''); setReason(''); 
           };
@@ -818,7 +1003,7 @@
                       )}
                       
                       <div className="flex justify-between items-start mb-2 pr-12">
-                         <span className="text-xs font-bold text-slate-400 bg-slate-100 px-2 py-1 rounded-md"><i className="fa-regular fa-calendar mr-1"></i> Requested: {leave.requestDate}</span>
+                         <span className="text-xs font-bold text-slate-400 bg-slate-100 px-2 py-1 rounded-md"><i className="fa-regular fa-calendar mr-1"></i> Requested: {formatDateEn(new Date(leave.requestDate))}</span>
                          <div className="text-right">
                              <span className={`px-2 py-0.5 text-[10px] rounded-md font-bold uppercase tracking-wider border ${leave.status === 'অনুমোদিত' ? 'bg-green-50 text-green-700 border-green-200' : leave.status === 'বাতিল' ? 'bg-red-50 text-red-700 border-red-200' : 'bg-orange-50 text-orange-700 border-orange-200'}`}>{leave.status}</span>
                              {leave.approvedAt && <div className="text-[9px] text-blue-600 mt-1 font-semibold whitespace-nowrap"><i className="fa-regular fa-clock"></i> {leave.approvedAt} {leave.approvedBy && `(${leave.approvedBy})`}</div>}
@@ -942,7 +1127,7 @@
                 <table className="w-full text-left border-collapse">
                   <thead><tr className="bg-slate-50 text-slate-500 uppercase text-xs tracking-wider border-b border-slate-200"><th className="p-4 font-bold">তারিখ</th>{canApprove && <th className="p-4 font-bold">নাম</th>}<th className="p-4 font-bold">ধরন</th><th className="p-4 font-bold">বিবরণ</th><th className="p-4 font-bold">পরিমাণ</th><th className="p-4 font-bold">স্ট্যাটাস</th><th className="p-4 font-bold">অ্যাকশন</th></tr></thead>
                   <tbody className="divide-y divide-slate-100">
-                    {displayExpenses.length === 0 ? <tr><td colSpan="7" className="p-8 text-center text-slate-400 font-medium">কোনো রেকর্ড পাওয়া যায়নি</td></tr> : 
+                    {displayExpenses.length === 0 ? <tr><td colSpan="7" className="p-8 text-center text-slate-400 font-medium">কোনো রেকর্ড পাওয়া যায়নি</td></tr> : 
                       displayExpenses.map(exp => (
                         <tr key={exp.id} className="hover:bg-slate-50 transition">
                            <td className="p-4 text-slate-600 font-medium">{formatDateEn(new Date(exp.date))}</td>
@@ -1006,14 +1191,14 @@
           );
         }
 
-        function ReportView({ user, reports, addReport, deleteReport, showConfirm, showAlert }) {
+        function ReportView({ user, reports, addReport, deleteReport, showConfirm, showAlert, logAction }) {
           const defaultReportFormat = `১. আজকের সম্পন্ন করা কাজসমূহ:\n- \n- \n\n২. অসমাপ্ত কাজ (যদি থাকে):\n- \n\n৩. বিশেষ মন্তব্য বা সমস্যা (যদি থাকে):\n- `;
           const [customers, setCustomers] = useState(''); const [reportText, setReportText] = useState(defaultReportFormat);
           
-          const submitReport = (e) => { 
-            e.preventDefault(); 
-            addReport({ id: Date.now(), userId: user.id, userName: user.name, customers: parseInt(customers) || 0, reportText: reportText, date: formatDateISO(new Date()) }); 
-            setCustomers(''); setReportText(defaultReportFormat); showAlert('রিপোর্ট জমা হয়েছে!'); 
+          const submitReport = (e) => { 
+            e.preventDefault(); 
+            addReport({ id: Date.now(), userId: user.id, userName: user.name, customers: parseInt(customers) || 0, reportText: reportText, date: formatDateISO(new Date()) }); 
+            setCustomers(''); setReportText(defaultReportFormat); showAlert('রিপোর্ট জমা হয়েছে!'); 
           };
           
           const canView = user.role === 'admin' || user.canViewReports;
@@ -1061,20 +1246,20 @@
               const netSalary = (parseFloat(baseSalary)||0) - (parseFloat(additions)||0) - (parseFloat(deductions)||0);
 
               if (editingSalId) {
-                  updateSalary(editingSalId, { 
-                      userId: emp.id, userName: emp.name, month, 
-                      baseSalary: parseFloat(baseSalary)||0, additions: parseFloat(additions)||0, 
-                      deductions: parseFloat(deductions)||0, deductionReason, status, netSalary 
+                  updateSalary(editingSalId, { 
+                      userId: emp.id, userName: emp.name, month, 
+                      baseSalary: parseFloat(baseSalary)||0, additions: parseFloat(additions)||0, 
+                      deductions: parseFloat(deductions)||0, deductionReason, status, netSalary 
                   });
                   logAction(`Updated salary for ${emp.name} ${month}`);
                   setEditingSalId(null);
                   showAlert('বেতন সফলভাবে আপডেট করা হয়েছে!');
               } else {
-                  addSalary({ 
-                      id: Date.now(), userId: emp.id, userName: emp.name, month: month, 
-                      baseSalary: parseFloat(baseSalary)||0, additions: parseFloat(additions)||0, 
-                      deductions: parseFloat(deductions)||0, deductionReason: deductionReason, 
-                      status: status, netSalary: netSalary 
+                  addSalary({ 
+                      id: Date.now(), userId: emp.id, userName: emp.name, month: month, 
+                      baseSalary: parseFloat(baseSalary)||0, additions: parseFloat(additions)||0, 
+                      deductions: parseFloat(deductions)||0, deductionReason: deductionReason, 
+                      status: status, netSalary: netSalary 
                   });
                   logAction(`Added salary for ${emp.name} ${month}`);
                   showAlert('বেতন সফলভাবে সেভ করা হয়েছে!');
@@ -1187,13 +1372,13 @@
 
           const submitUser = (e) => {
             e.preventDefault();
-            if (editingId) { 
-                updateUser(editingId, { name, loginId, password, designation, canInvest, canSubmitExp, canApproveExp, canViewReports, canSubmitAttendance, canApproveLeave }); 
+            if (editingId) { 
+                updateUser(editingId, { name, loginId, password, designation, canInvest, canSubmitExp, canApproveExp, canViewReports, canSubmitAttendance, canApproveLeave }); 
                 logAction(`Updated staff: ${name}`);
-                setEditingId(null); showAlert('প্রোফাইল আপডেট হয়েছে!'); 
-            } else { 
-                addUser({ id: Date.now(), name, loginId, password, designation, role: 'staff', avatar: null, canInvest, canSubmitExp, canApproveExp, canViewReports, canSubmitAttendance, canApproveLeave }); 
-                showAlert('নতুন স্টাফ যুক্ত হয়েছে!'); 
+                setEditingId(null); showAlert('প্রোফাইল আপডেট হয়েছে!'); 
+            } else { 
+                addUser({ id: Date.now(), name, loginId, password, designation, role: 'staff', avatar: null, canInvest, canSubmitExp, canApproveExp, canViewReports, canSubmitAttendance, canApproveLeave }); 
+                showAlert('নতুন স্টাফ যুক্ত হয়েছে!'); 
             }
             setName(''); setLoginId(''); setPassword(''); setDesignation(''); setCanInvest(false); setCanSubmitExp(true); setCanApproveExp(false); setCanViewReports(false); setCanSubmitAttendance(false); setCanApproveLeave(false);
           };
